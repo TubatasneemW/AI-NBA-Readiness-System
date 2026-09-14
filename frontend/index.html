@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBA Digital Twin — AI & ML Department Accreditation Dashboard</title>
+  <meta name="description" content="NBA Digital Twin — AI & ML Department Accreditation Intelligence System for real-time compliance monitoring.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+
+<body>
+  <div id="app-container">
+
+    <!-- ============================================================
+         TOP HEADER
+         ============================================================ -->
+    <header class="app-header">
+      <!-- Brand area (aligns with sidebar) -->
+      <div class="header-brand">
+        <div class="brand-logo-circle">
+          <!-- NBA-style shield SVG logo -->
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" fill="#1e3a8a"/>
+            <circle cx="20" cy="20" r="14" fill="#1a56db"/>
+            <text x="20" y="16" font-family="Outfit,sans-serif" font-size="7" font-weight="800" fill="white" text-anchor="middle">NBA</text>
+            <text x="20" y="26" font-family="Outfit,sans-serif" font-size="4.5" font-weight="600" fill="#93c5fd" text-anchor="middle">DIGITAL TWIN</text>
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-name">NBA DIGITAL TWIN</span>
+          <span class="brand-sub">AI &amp; ML Department</span>
+        </div>
+      </div>
+
+      <!-- Page title (hamburger + title) -->
+      <div class="header-center">
+        <button class="header-menu-btn" id="sidebar-toggle-btn" title="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="header-page-title">
+          <h2>Dashboard</h2>
+          <span>AI &amp; ML Department Digital Twin – NBA Accreditation</span>
+        </div>
+      </div>
+
+      <!-- Right side: Notification + User -->
+      <div class="header-right">
+        <button class="header-notif-btn" id="notif-btn" title="Notifications" onclick="toggleNotifDrawer()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+          </svg>
+          <span class="notif-badge">3</span>
+        </button>
+
+        <div class="header-user">
+          <div class="user-avatar-img">BR</div>
+          <div class="user-info-block">
+            <span class="user-name">Dr. Bharati Reshmi</span>
+            <span class="user-role">AI &amp; ML Department</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN WRAPPER -->
+    <div class="app-main">
+
+      <!-- ============================================================
+           SIDEBAR — NBA Digital Twin Navigation
+           ============================================================ -->
+      <aside class="app-sidebar" id="app-sidebar">
+
+        <div class="sidebar-section-label">MAIN MENU</div>
+
+        <a class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')" id="nav-dashboard">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="9" rx="1"/>
+            <rect x="14" y="3" width="7" height="5" rx="1"/>
+            <rect x="14" y="12" width="7" height="9" rx="1"/>
+            <rect x="3" y="16" width="7" height="5" rx="1"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="nav-item" data-tab="programme-info" onclick="switchTab('programme-info')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <span>Programme Information</span>
+        </a>
+
+        <a class="nav-item" data-tab="c5-faculty" onclick="switchTab('c5-faculty')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Faculty Twin</span>
+        </a>
+
+        <a class="nav-item" data-tab="c4-students" onclick="switchTab('c4-students')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+          <span>Student Twin</span>
+        </a>
+
+        <a class="nav-item" data-tab="course-curriculum" onclick="switchTab('course-curriculum')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>Course &amp; Curriculum</span>
+        </a>
+
+        <a class="nav-item" data-tab="c3-assessment" onclick="switchTab('c3-assessment')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span>CO-PO-PSO Mapping</span>
+        </a>
+
+        <a class="nav-item" data-tab="attainment" onclick="switchTab('c3-assessment')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span>Attainment Analysis</span>
+        </a>
+
+        <a class="nav-item" data-tab="c6-contributions" onclick="switchTab('c6-contributions')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span>Research &amp; Publications</span>
+        </a>
+
+        <a class="nav-item" data-tab="infrastructure" onclick="switchTab('dashboard')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+          <span>Infrastructure Twin</span>
+        </a>
+
+        <a class="nav-item" data-tab="placements" onclick="switchTab('c4-students')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8"/>
+            <path d="M12 17v4"/>
+          </svg>
+          <span>Placements &amp; Internships</span>
+        </a>
+
+        <a class="nav-item" data-tab="nba-criteria" onclick="switchTab('dashboard')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span>NBA Criteria &amp; Compliance</span>
+        </a>
+
+        <a class="nav-item" data-tab="evidence-center" onclick="switchTab('evidence-center')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="M2 15h10"/>
+            <path d="m9 18 3-3-3-3"/>
+          </svg>
+          <span>Document Repository</span>
+        </a>
+
+        <a class="nav-item" data-tab="reports" onclick="switchTab('reports')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <span>Reports</span>
+        </a>
+
+        <a class="nav-item" data-tab="gap-analysis" onclick="switchTab('action-center')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <span>Gap Analysis</span>
+        </a>
+
+        <a class="nav-item" data-tab="ai-assistant" onclick="switchTab('ai-assistant')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="10" rx="2"/>
+            <circle cx="12" cy="5" r="2"/>
+            <path d="M12 7v4"/>
+            <line x1="8" y1="16" x2="8" y2="16"/>
+            <line x1="16" y1="16" x2="16" y2="16"/>
+          </svg>
+          <span>AI Assistant</span>
+        </a>
+
+        <!-- Bottom readiness card -->
+        <div class="sidebar-footer">
+          <div class="nba-readiness-card">
+            <div class="nba-readiness-label">NBA Readiness</div>
+            <span class="nba-readiness-score">78%</span>
+            <div class="nba-readiness-status">Good</div>
+            <div class="nba-readiness-bar">
+              <div class="nba-readiness-bar-fill" style="width: 78%;"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ============================================================
+           MAIN CONTENT AREA
+           ============================================================ -->
+      <main class="app-content">
+
+        <!-- ============================================================
+             DASHBOARD TAB VIEW
+             ============================================================ -->
+        <div id="view-dashboard" class="tab-view">
+
+          <!-- Filter Bar -->
+          <div class="dashboard-filter-bar">
+            <div class="filter-group">
+              <label>Academic Year</label>
+              <select class="filter-select" id="filter-ay">
+                <option>2025-26</option>
+                <option>2024-25</option>
+                <option>2023-24</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Semester</label>
+              <select class="filter-select" id="filter-sem">
+                <option>Even Semester</option>
+                <option>Odd Semester</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Programme</label>
+              <select class="filter-select" id="filter-prog">
+                <option>B.E AI &amp; ML</option>
+                <option>M.Tech AI &amp; ML</option>
+              </select>
+            </div>
+            <button class="btn-download-report" onclick="simulateReportDownload('NBA_Dashboard_Report.pdf')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download Report
+            </button>
+          </div>
+
+          <!-- Dashboard Scrollable Content -->
+          <div class="dashboard-scroll">
+
+            <!-- KPI Row (6 cards) -->
+            <div class="kpi-row" id="kpi-row">
+              <!-- Injected via JS -->
+            </div>
+
+            <!-- Middle Grid: CO-PO Chart | Criteria Donut | Progress List -->
+            <div class="dashboard-mid-grid">
+
+              <!-- CO-PO Attainment Bar Chart -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">CO – PO Attainment Overview</span>
+                  <a class="panel-link" onclick="switchTab('c3-assessment')">View Details</a>
+                </div>
+                <div class="copo-chart-wrap">
+                  <div class="copo-legend">
+                    <div class="legend-item"><div class="legend-dot target"></div> Target</div>
+                    <div class="legend-item"><div class="legend-dot attainment"></div> Attainment</div>
+                  </div>
+                  <div class="copo-bar-chart" id="copo-bar-chart">
+                    <!-- SVG injected via JS -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- NBA Criteria Status Donut -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">NBA Criteria Status</span>
+                  <a class="panel-link" onclick="switchTab('dashboard')">View All</a>
+                </div>
+                <div class="criteria-donut-wrap" id="criteria-donut-wrap">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Criteria Wise Progress -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">Criteria Wise Progress</span>
+                  <a class="panel-link" onclick="switchTab('dashboard')">View All</a>
+                </div>
+                <div class="panel-body">
+                  <div class="progress-list" id="criteria-progress-list">
+                    <!-- Injected via JS -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom 4-column Grid -->
+            <div class="dashboard-bottom-grid">
+
+              <!-- Faculty Overview -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">Faculty Overview</span>
+                  <a class="panel-link" onclick="switchTab('c5-faculty')">View Details</a>
+                </div>
+                <div class="panel-body" id="faculty-overview-panel">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Student Overview -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">Student Overview</span>
+                  <a class="panel-link" onclick="switchTab('c4-students')">View Details</a>
+                </div>
+                <div class="panel-body" id="student-overview-panel">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Infrastructure Overview -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">Infrastructure Overview</span>
+                  <a class="panel-link" onclick="switchTab('dashboard')">View Details</a>
+                </div>
+                <div class="panel-body" id="infra-overview-panel">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Recent Alerts / Notifications -->
+              <div class="panel-card">
+                <div class="panel-head">
+                  <span class="panel-head-title">Recent Alerts / Notifications</span>
+                  <a class="panel-link" onclick="toggleNotifDrawer()">View All</a>
+                </div>
+                <div class="panel-body">
+                  <div class="alert-list" id="recent-alerts-list">
+                    <!-- Injected via JS -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- AI Assistant Bar -->
+            <div class="ai-bar">
+              <div class="ai-bar-avatar">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8">
+                  <rect x="3" y="11" width="18" height="10" rx="2"/>
+                  <circle cx="12" cy="5" r="2"/>
+                  <path d="M12 7v4"/>
+                  <line x1="8" y1="16" x2="8" y2="16"/>
+                  <line x1="16" y1="16" x2="16" y2="16"/>
+                </svg>
+              </div>
+              <div class="ai-bar-info">
+                <div class="ai-bar-title">AI Assistant</div>
+                <div class="ai-bar-subtitle">Your NBA Compliance Assistant</div>
+              </div>
+              <div class="ai-bar-desc">Ask anything about NBA, CO-PO attainment, criteria, documents...</div>
+              <div class="ai-bar-pills">
+                <button class="ai-pill" onclick="switchTab('ai-assistant'); setTimeout(()=>sendPrompt('What is the CO Attainment status?'),300)">CO Attainment Status</button>
+                <button class="ai-pill" onclick="switchTab('ai-assistant'); setTimeout(()=>sendPrompt('PO Gap Analysis'),300)">PO Gap Analysis</button>
+                <button class="ai-pill" onclick="switchTab('ai-assistant'); setTimeout(()=>sendPrompt('Show missing documents'),300)">Missing Documents</button>
+                <button class="ai-pill" onclick="switchTab('ai-assistant'); setTimeout(()=>sendPrompt('Research summary for C6'),300)">Research Summary</button>
+                <button class="ai-pill" onclick="switchTab('ai-assistant'); setTimeout(()=>sendPrompt('NBA Readiness Suggestions'),300)">Readiness Suggestions</button>
+              </div>
+              <div class="ai-bar-input-wrap">
+                <input type="text" class="ai-bar-input" id="ai-bar-input-field" placeholder="Type your question..."
+                  onkeydown="if(event.key==='Enter'){ switchTab('ai-assistant'); setTimeout(()=>{document.getElementById('chat-input-field').value=this.value; sendChatMessage();},300); this.value=''; }">
+                <button class="ai-bar-send" onclick="var v=document.getElementById('ai-bar-input-field').value; switchTab('ai-assistant'); setTimeout(()=>{document.getElementById('chat-input-field').value=v; sendChatMessage();},300); document.getElementById('ai-bar-input-field').value='';">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Page Footer -->
+            <div class="dashboard-page-footer">
+              © 2025 AI &amp; ML Department | NBA Digital Twin | All Rights Reserved
+            </div>
+
+          </div><!-- /dashboard-scroll -->
+        </div><!-- /view-dashboard -->
+
+        <!-- ============================================================
+             CRITERION 3 VIEW
+             ============================================================ -->
+        <div id="view-c3-assessment" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Criterion 3 — Outcome-Based Assessment &amp; Attainment</h1>
+                <p class="view-desc">Did students actually learn what the curriculum set out to achieve? Data ingestion &amp; gap analysis.</p>
+              </div>
+              <div class="view-actions">
+                <button class="btn btn-secondary" onclick="openC3UploadModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" x2="12" y1="3" y2="15"/>
+                  </svg>
+                  Upload C3 Assessment Data
+                </button>
+              </div>
+            </div>
+
+            <!-- SUB TABS FOR C3 -->
+            <div class="subtabs-bar">
+              <button class="subtab-btn active" onclick="switchC3Subtab('attainment')">CO Attainment &amp; Analytics</button>
+              <button class="subtab-btn" onclick="switchC3Subtab('question-mapping')">Question-to-CO Mapping</button>
+              <button class="subtab-btn" onclick="switchC3Subtab('copo-matrix')">PO / PSO Attainment Heatmap</button>
+              <button class="subtab-btn" onclick="switchC3Subtab('evidence')">C3 Evidence Documents</button>
+            </div>
+
+            <!-- C3 SUBTAB 1: CO ATTAINMENT -->
+            <div id="c3-subtab-attainment" class="subtab-content active">
+              <div class="analytics-card">
+                <div class="card-header" style="margin-bottom:16px;">
+                  <div class="panel-title">Overall Course Outcome Attainment (Course: 21CS61 — Machine Learning)</div>
+                  <div class="target-indicator">Target Threshold: <strong style="color: var(--amber);">70.0%</strong></div>
+                </div>
+                <div class="co-bars-container" id="co-bars-list"><!-- Injected via JS --></div>
+              </div>
+
+              <div class="panel-box alert-border" id="weak-co-panel">
+                <div class="panel-header">
+                  <div class="panel-title text-critical">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/>
+                      <line x1="12" x2="12" y1="8" y2="12"/>
+                      <line x1="12" x2="12.01" y1="16" y2="16"/>
+                    </svg>
+                    <span id="weak-co-title">CRITICAL GAP: CO2 (Apply Machine Learning Algorithms) — Attainment 61.0% (Target 70%)</span>
+                  </div>
+                  <span class="badge-status status-critical">GAP: -9.0%</span>
+                </div>
+                <div class="cause-recommendation-grid">
+                  <div class="cause-box">
+                    <div class="box-subtitle">Contributing Assessment Breakdown:</div>
+                    <div class="contrib-list">
+                      <div class="contrib-row"><span>Midterm Exam (Q2, Q3)</span><strong class="text-critical">54%</strong></div>
+                      <div class="contrib-row"><span>Quiz 2 (ML Algorithms)</span><strong class="text-amber">59%</strong></div>
+                      <div class="contrib-row"><span>Lab Exercise 4 &amp; 5</span><strong>63%</strong></div>
+                      <div class="contrib-row"><span>Assignment 1</span><strong class="text-pass">68%</strong></div>
+                    </div>
+                    <div class="root-cause-text"><strong>Root Cause Analysis:</strong> Low performance in application-based questions on decision trees and SVM kernel formulation.</div>
+                  </div>
+                  <div class="recommendation-box">
+                    <div class="box-subtitle">AI Recommended Corrective Action:</div>
+                    <div class="ai-recommendation-content">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                      <p>Conduct 2 additional hands-on practical sessions focusing on decision tree coding &amp; kernel trick numericals, followed by a targeted remedial assessment.</p>
+                    </div>
+                    <button class="btn btn-primary btn-sm" id="btn-create-co-action" onclick="createRemedialActionForCO2()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                      Create Improvement Action Item
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- C3 SUBTAB 2: QUESTION MAPPING -->
+            <div id="c3-subtab-question-mapping" class="subtab-content hidden">
+              <div class="panel-box">
+                <div class="panel-header">
+                  <div class="panel-title">Midterm Question Paper CO &amp; Bloom's Taxonomy Mapping</div>
+                  <div class="badge-status status-pass">Mapping Completeness: 100%</div>
+                </div>
+                <div class="table-container">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Question No</th><th>Mapped CO</th><th>Max Marks</th>
+                        <th>Bloom's Taxonomy</th><th>Difficulty</th><th>Evidence Link</th>
+                      </tr>
+                    </thead>
+                    <tbody id="question-mapping-tbody"><!-- Injected via JS --></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- C3 SUBTAB 3: PO/PSO HEATMAP -->
+            <div id="c3-subtab-copo-matrix" class="subtab-content hidden">
+              <div class="panel-box">
+                <div class="panel-header">
+                  <div class="panel-title">CO-PO &amp; PSO Attainment Strength Matrix (Heatmap)</div>
+                  <div class="heatmap-legend">
+                    <span class="legend-cell level-3">3: High</span>
+                    <span class="legend-cell level-2">2: Moderate</span>
+                    <span class="legend-cell level-1">1: Slight</span>
+                    <span class="legend-cell level-0">- : Unmapped</span>
+                  </div>
+                </div>
+                <div class="table-container">
+                  <table class="heatmap-table" id="copo-heatmap-table"><!-- Injected via JS --></table>
+                </div>
+              </div>
+            </div>
+
+            <!-- C3 SUBTAB 4: EVIDENCE -->
+            <div id="c3-subtab-evidence" class="subtab-content hidden">
+              <div id="c3-evidence-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             CRITERION 4 VIEW
+             ============================================================ -->
+        <div id="view-c4-students" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Criterion 4 — Student Performance &amp; Risk Intelligence</h1>
+                <p class="view-desc">Monitor student pass rates, success trends, backlog indicators, and early-warning risk radar.</p>
+              </div>
+              <div class="view-actions">
+                <button class="btn btn-secondary" onclick="openC4DataUploadModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" x2="12" y1="3" y2="15"/>
+                  </svg>
+                  Upload Student Marks &amp; Results
+                </button>
+              </div>
+            </div>
+
+            <div class="metrics-strip">
+              <div class="metric-card"><span class="metric-label">Pass Percentage</span><span class="metric-val">92.4%</span><span class="metric-sub positive">↑ 3.4% from last sem</span></div>
+              <div class="metric-card"><span class="metric-label">Success Rate (Without Backlog)</span><span class="metric-val">87.8%</span><span class="metric-sub positive">Target &gt; 80%</span></div>
+              <div class="metric-card"><span class="metric-label">Total Department Backlogs</span><span class="metric-val">14</span><span class="metric-sub positive">↓ 5 backlogs reduced</span></div>
+              <div class="metric-card"><span class="metric-label">Activity &amp; Certification Rate</span><span class="metric-val">68.0%</span><span class="metric-sub neutral">142 Active Students</span></div>
+            </div>
+
+            <div class="dashboard-dual-grid">
+              <div class="panel-box">
+                <div class="panel-header">
+                  <div class="panel-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                    </svg>
+                    Student Support Risk Radar
+                  </div>
+                  <div class="risk-legend">
+                    <span class="badge-chip red">8 High Attention</span>
+                    <span class="badge-chip amber">17 Monitor</span>
+                    <span class="badge-chip green">117 On Track</span>
+                  </div>
+                </div>
+                <div class="radar-container">
+                  <svg class="risk-radar-svg" viewBox="0 0 300 240">
+                    <circle cx="150" cy="120" r="100" class="radar-ring outer"/>
+                    <circle cx="150" cy="120" r="65" class="radar-ring mid"/>
+                    <circle cx="150" cy="120" r="30" class="radar-ring inner"/>
+                    <line x1="150" y1="20" x2="150" y2="220" class="radar-grid"/>
+                    <line x1="50" y1="120" x2="250" y2="120" class="radar-grid"/>
+                    <circle cx="140" cy="115" r="5" class="radar-dot high-risk" onclick="filterStudents('HIGH_ATTENTION')"/>
+                    <circle cx="155" cy="128" r="5" class="radar-dot high-risk" onclick="filterStudents('HIGH_ATTENTION')"/>
+                    <circle cx="145" cy="132" r="5" class="radar-dot high-risk" onclick="filterStudents('HIGH_ATTENTION')"/>
+                    <circle cx="160" cy="110" r="5" class="radar-dot high-risk" onclick="filterStudents('HIGH_ATTENTION')"/>
+                    <circle cx="120" cy="90" r="4.5" class="radar-dot monitor-risk" onclick="filterStudents('NEEDS_MONITORING')"/>
+                    <circle cx="180" cy="100" r="4.5" class="radar-dot monitor-risk" onclick="filterStudents('NEEDS_MONITORING')"/>
+                    <circle cx="110" cy="140" r="4.5" class="radar-dot monitor-risk" onclick="filterStudents('NEEDS_MONITORING')"/>
+                    <circle cx="80" cy="60" r="4" class="radar-dot track-risk" onclick="filterStudents('ON_TRACK')"/>
+                    <circle cx="210" cy="70" r="4" class="radar-dot track-risk" onclick="filterStudents('ON_TRACK')"/>
+                    <circle cx="220" cy="160" r="4" class="radar-dot track-risk" onclick="filterStudents('ON_TRACK')"/>
+                  </svg>
+                  <div class="radar-hint">Click radar dots or filters below to inspect individual student support cards</div>
+                </div>
+              </div>
+              <div class="panel-box">
+                <div class="panel-header"><div class="panel-title">Multi-Year Pass % &amp; Backlog Trend</div></div>
+                <div class="chart-container" id="student-trend-chart"><!-- SVG Line Chart via JS --></div>
+              </div>
+            </div>
+
+            <div class="panel-box" style="margin-top: 18px;">
+              <div class="panel-header">
+                <div class="panel-title">Student Performance Directory</div>
+                <div class="filter-pills" id="student-risk-filters">
+                  <button class="pill-btn active" onclick="filterStudents('ALL')">All Students (142)</button>
+                  <button class="pill-btn red" onclick="filterStudents('HIGH_ATTENTION')">High Attention (8)</button>
+                  <button class="pill-btn amber" onclick="filterStudents('NEEDS_MONITORING')">Needs Monitoring (17)</button>
+                  <button class="pill-btn green" onclick="filterStudents('ON_TRACK')">On Track (117)</button>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>USN</th><th>Student Name</th><th>CGPA</th><th>Attendance</th>
+                      <th>Internal Marks</th><th>Backlogs</th><th>Activities</th>
+                      <th>Risk Indicator</th><th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="student-directory-tbody"><!-- Injected via JS --></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             CRITERION 5 VIEW
+             ============================================================ -->
+        <div id="view-c5-faculty" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Criterion 5 — Faculty Information &amp; Workload</h1>
+                <p class="view-desc">Do we have enough qualified faculty? Faculty-student ratio, qualifications, and profile completeness.</p>
+              </div>
+            </div>
+
+            <div class="metrics-strip">
+              <div class="metric-card"><span class="metric-label">Total Faculty Cadre</span><span class="metric-val">32</span><span class="metric-sub neutral">CSE Department</span></div>
+              <div class="metric-card"><span class="metric-label">Faculty-Student Ratio</span><span class="metric-val">1 : 18</span><span class="metric-sub positive">NBA Requirement ≤ 1:20 ✓</span></div>
+              <div class="metric-card"><span class="metric-label">Profile Completeness Score</span><span class="metric-val">94.0%</span><span class="metric-sub amber">3 missing qualification records</span></div>
+              <div class="metric-card"><span class="metric-label">Ph.D. Qualified Faculty</span><span class="metric-val">14 / 32</span><span class="metric-sub positive">43.7% Cadre Ph.D.</span></div>
+            </div>
+
+            <div class="dashboard-dual-grid">
+              <div class="panel-box">
+                <div class="panel-header"><div class="panel-title">Faculty Cadre &amp; Qualification Breakdown</div></div>
+                <div class="breakdown-grid">
+                  <div class="breakdown-box">
+                    <div class="box-subtitle">By Designation:</div>
+                    <div class="bar-stat-row"><span>Professors (4)</span><div class="bar-stat"><div class="fill" style="width:12.5%"></div></div></div>
+                    <div class="bar-stat-row"><span>Assoc. Professors (8)</span><div class="bar-stat"><div class="fill" style="width:25%"></div></div></div>
+                    <div class="bar-stat-row"><span>Asst. Professors (20)</span><div class="bar-stat"><div class="fill" style="width:62.5%"></div></div></div>
+                  </div>
+                  <div class="breakdown-box">
+                    <div class="box-subtitle">By Highest Qualification:</div>
+                    <div class="bar-stat-row"><span>Ph.D. (14)</span><div class="bar-stat"><div class="fill c5-bg" style="width:44%"></div></div></div>
+                    <div class="bar-stat-row"><span>M.Tech (15)</span><div class="bar-stat"><div class="fill c5-bg" style="width:47%"></div></div></div>
+                    <div class="bar-stat-row"><span>M.C.A. (3)</span><div class="bar-stat"><div class="fill c5-bg" style="width:9%"></div></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-box">
+                <div class="panel-header"><div class="panel-title">Faculty Teaching &amp; Workload Hours (Weekly)</div></div>
+                <div class="chart-container" id="faculty-workload-chart"><!-- SVG via JS --></div>
+              </div>
+            </div>
+
+            <div class="panel-box" style="margin-top: 18px;">
+              <div class="panel-header"><div class="panel-title">Faculty Directory &amp; Profile Completeness</div></div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Faculty Name</th><th>Designation</th><th>Qualification</th>
+                      <th>Experience</th><th>Workload</th><th>Profile Score</th>
+                      <th>Status</th><th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="faculty-directory-tbody"><!-- Injected via JS --></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             CRITERION 6 VIEW
+             ============================================================ -->
+        <div id="view-c6-contributions" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Criterion 6 — Faculty Contributions &amp; Research Impact</h1>
+                <p class="view-desc">What are faculty contributing? Publications, patents, FDPs, projects, and verified research evidence.</p>
+              </div>
+              <div class="view-actions">
+                <button class="btn btn-primary" onclick="openContributionModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                  Add New Contribution
+                </button>
+              </div>
+            </div>
+
+            <div class="metrics-strip">
+              <div class="metric-card"><span class="metric-label">Contribution Index</span><span class="metric-val text-amber">78 / 100</span><span class="metric-sub amber">8 pending verifications</span></div>
+              <div class="metric-card"><span class="metric-label">Journal &amp; Conf. Publications</span><span class="metric-val">47</span><span class="metric-sub positive">42 Verified PDF Evidence</span></div>
+              <div class="metric-card"><span class="metric-label">Patents Filed &amp; Granted</span><span class="metric-val">12</span><span class="metric-sub positive">3 Granted</span></div>
+              <div class="metric-card"><span class="metric-label">FDPs &amp; Certifications</span><span class="metric-val">120</span><span class="metric-sub neutral">AY 2025-26</span></div>
+            </div>
+
+            <div class="panel-box alert-border" style="margin-bottom:18px;">
+              <div class="panel-header">
+                <div class="panel-title text-indigo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/>
+                    <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>
+                  </svg>
+                  Evidence Verification Chain: Interactive Claim-to-Proof Graph
+                </div>
+                <span class="badge-status status-pass">Verified Architecture</span>
+              </div>
+              <div class="verification-chain-container" id="evidence-verification-chain"><!-- Injected via JS --></div>
+            </div>
+
+            <div class="panel-box">
+              <div class="panel-header">
+                <div class="panel-title">Faculty Contributions Registry</div>
+                <div class="filter-pills" id="c6-type-filters">
+                  <button class="pill-btn active" onclick="filterC6Contributions('ALL')">All</button>
+                  <button class="pill-btn" onclick="filterC6Contributions('Publication')">Publications</button>
+                  <button class="pill-btn" onclick="filterC6Contributions('Patent')">Patents</button>
+                  <button class="pill-btn" onclick="filterC6Contributions('FDP')">FDPs</button>
+                  <button class="pill-btn" onclick="filterC6Contributions('Research Project')">Projects</button>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Contribution Title</th><th>Type</th><th>Faculty Name</th>
+                      <th>Publisher / Organizer</th><th>Date</th><th>Evidence Status</th><th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="c6-contributions-tbody"><!-- Injected via JS --></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             EVIDENCE CENTER VIEW
+             ============================================================ -->
+        <div id="view-evidence-center" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Evidence Center — Global Repository &amp; AI Extraction</h1>
+                <p class="view-desc">Central vault proving department compliance. Automated AI OCR &amp; metadata tagging.</p>
+              </div>
+              <div class="view-actions">
+                <button class="btn btn-primary" onclick="openGlobalUploadModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" x2="12" y1="3" y2="15"/>
+                  </svg>
+                  Upload &amp; AI Parse Document
+                </button>
+              </div>
+            </div>
+
+            <div class="ai-dropzone-box" onclick="openGlobalUploadModal()">
+              <div class="dropzone-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8">
+                  <path d="M4 14.89 12 3l8 11.89H4z"/><path d="M12 9v4"/><path d="M12 17h.01"/>
+                </svg>
+              </div>
+              <div class="dropzone-text">
+                <h3>Drop Document Here or Click to Browse</h3>
+                <p>AI will automatically detect: Document Type, Faculty, Criterion (C3-C6), Academic Year, and Verification Status.</p>
+              </div>
+              <button class="btn btn-secondary btn-sm">Select Document File</button>
+            </div>
+
+            <div class="panel-box" style="margin-top:20px;">
+              <div class="panel-header">
+                <div class="panel-title">All Department Evidence Vault</div>
+                <div class="filter-pills" id="evidence-status-filters">
+                  <button class="pill-btn active" onclick="filterEvidence('ALL')">All (42)</button>
+                  <button class="pill-btn green" onclick="filterEvidence('VERIFIED')">Verified (31)</button>
+                  <button class="pill-btn amber" onclick="filterEvidence('NEEDS_REVIEW')">Needs Review (8)</button>
+                  <button class="pill-btn red" onclick="filterEvidence('MISSING')">Missing (3)</button>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Document File</th><th>Criterion</th><th>Requirement / Scope</th>
+                      <th>Faculty / Context</th><th>Upload Date</th><th>AI Tagged Type</th>
+                      <th>Verification</th><th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="evidence-vault-tbody"><!-- Injected via JS --></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             AI ASSISTANT VIEW
+             ============================================================ -->
+        <div id="view-ai-assistant" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">AccrediX AI — RAG Knowledge Assistant</h1>
+                <p class="view-desc">Ask questions about department compliance, missing documents, CO attainment, or student risk.</p>
+              </div>
+            </div>
+
+            <div class="ai-assistant-container">
+              <div class="suggested-prompts-bar">
+                <span class="prompt-chip" onclick="sendPrompt('What evidence do we have for Criterion 6?')">"What evidence do we have for C6?"</span>
+                <span class="prompt-chip" onclick="sendPrompt('Which faculty records are incomplete?')">"Which faculty records are incomplete?"</span>
+                <span class="prompt-chip" onclick="sendPrompt('Which COs are below target?')">"Which COs are below target?"</span>
+                <span class="prompt-chip" onclick="sendPrompt('Show students needing academic support')">"Show students needing academic support"</span>
+              </div>
+              <div class="chat-messages-box" id="chat-messages-container">
+                <div class="message assistant-msg">
+                  <div class="msg-avatar">AI</div>
+                  <div class="msg-content">
+                    <div class="msg-text">Hello! I am <strong>AccrediX AI</strong>, your Accreditation Intelligence Assistant. I am connected directly to your AI &amp; ML Department Digital Twin data. Ask me anything about CO attainments, missing faculty evidence, student performance, or NBA inspection readiness!</div>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-input-bar">
+                <input type="text" id="chat-input-field" placeholder="Ask anything about your department compliance..."
+                  onkeydown="if(event.key==='Enter') sendChatMessage()">
+                <button class="btn btn-primary" onclick="sendChatMessage()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" x2="11" y1="2" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             ACTION CENTER VIEW
+             ============================================================ -->
+        <div id="view-action-center" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Action Center — Continuous Improvement Tracker</h1>
+                <p class="view-desc">Problem ➔ Recommended Action ➔ Responsible Owner ➔ Required Evidence ➔ Resolution.</p>
+              </div>
+            </div>
+            <div class="panel-box">
+              <div class="panel-header"><div class="panel-title">Active Corrective &amp; Improvement Actions</div></div>
+              <div class="action-items-list" id="action-items-list"><!-- Injected via JS --></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             REPORTS VIEW
+             ============================================================ -->
+        <div id="view-reports" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">SAR &amp; NBA Report Generation Center</h1>
+                <p class="view-desc">Generate official NBA Self-Assessment Report (SAR) tables and Virtual Audit export documentation.</p>
+              </div>
+            </div>
+            <div class="reports-grid">
+              <div class="report-card">
+                <div class="report-icon">📄</div>
+                <div class="report-title">Criterion 3 — Assessment &amp; Attainment Report</div>
+                <p class="report-desc">Includes CO-PO mapping matrix, question paper taxonomies, attainment scores, and remedial action taken reports.</p>
+                <button class="btn btn-secondary btn-sm" onclick="simulateReportDownload('C3 SAR Assessment Report.pdf')">Generate PDF Report</button>
+              </div>
+              <div class="report-card">
+                <div class="report-icon">👨‍🎓</div>
+                <div class="report-title">Criterion 4 — Student Performance SAR</div>
+                <p class="report-desc">Encompasses pass percentage calculation sheets, backlog trends, success rate data, and support indicator records.</p>
+                <button class="btn btn-secondary btn-sm" onclick="simulateReportDownload('C4 Student Performance SAR.pdf')">Generate PDF Report</button>
+              </div>
+              <div class="report-card">
+                <div class="report-icon">👨‍🏫</div>
+                <div class="report-title">Criterion 5 — Faculty Information SAR</div>
+                <p class="report-desc">Faculty cadre lists, F:S ratio proofs, workload distribution matrices, and qualification completeness logs.</p>
+                <button class="btn btn-secondary btn-sm" onclick="simulateReportDownload('C5 Faculty Information SAR.pdf')">Generate PDF Report</button>
+              </div>
+              <div class="report-card">
+                <div class="report-icon">🔬</div>
+                <div class="report-title">Criterion 6 — Faculty Contributions SAR</div>
+                <p class="report-desc">Consolidated research publication repository, patent grant records, FDP participation list, and funding logs.</p>
+                <button class="btn btn-secondary btn-sm" onclick="simulateReportDownload('C6 Faculty Contributions SAR.pdf')">Generate PDF Report</button>
+              </div>
+              <div class="report-card feature-report">
+                <div class="report-icon">⚡</div>
+                <div class="report-title">Virtual NBA Inspection Complete Audit</div>
+                <p class="report-desc">Comprehensive readiness audit report featuring PASS/WARNING/FAIL findings, missing evidence list, and compliance readiness score.</p>
+                <button class="btn btn-primary btn-sm" onclick="simulateReportDownload('Complete Virtual NBA Inspection Report.pdf')">Export Complete Audit PDF</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             PROGRAMME INFO VIEW (placeholder)
+             ============================================================ -->
+        <div id="view-programme-info" class="tab-view hidden">
+          <div class="dark-panel">
+            <div class="view-header">
+              <div>
+                <h1 class="view-title">Programme Information</h1>
+                <p class="view-desc">B.E AI &amp; ML Programme details, vision, mission, PEOs and PSOs.</p>
+              </div>
+            </div>
+            <div class="panel-box">
+              <div class="panel-header"><div class="panel-title">Programme Details</div></div>
+              <p style="color:#94a3b8; font-size:13px;">Programme information module — coming soon. Configure your programme details here.</p>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIRTUAL NBA INSPECTION MODAL
+       ============================================================ -->
+  <div id="inspection-modal" class="modal-overlay hidden">
+    <div class="modal-card inspection-modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          VIRTUAL NBA INSPECTION SIMULATOR
+        </div>
+        <button class="modal-close-btn" onclick="closeInspectionModal()">×</button>
+      </div>
+      <div class="modal-body" id="inspection-modal-body">
+        <div id="inspection-scanning-state">
+          <div class="scanning-loader">
+            <div class="spinner-ring"></div>
+            <div class="scanning-text">INITIALIZING VIRTUAL AUDIT...</div>
+          </div>
+          <div class="criteria-scan-steps">
+            <div class="scan-step-item" id="scan-step-c3">
+              <span class="step-badge" style="color:#ec4899;">C3</span>
+              <span class="step-name">Evaluating Assessment &amp; CO Attainments...</span>
+              <span class="step-status status-spin">Scanning...</span>
+            </div>
+            <div class="scan-step-item" id="scan-step-c4">
+              <span class="step-badge" style="color:#06b6d4;">C4</span>
+              <span class="step-name">Verifying Student Pass Rates &amp; Risk Radar...</span>
+              <span class="step-status">Waiting</span>
+            </div>
+            <div class="scan-step-item" id="scan-step-c5">
+              <span class="step-badge" style="color:#10b981;">C5</span>
+              <span class="step-name">Auditing Faculty Ratio &amp; Qualification Records...</span>
+              <span class="step-status">Waiting</span>
+            </div>
+            <div class="scan-step-item" id="scan-step-c6">
+              <span class="step-badge" style="color:#8b5cf6;">C6</span>
+              <span class="step-name">Validating Research Evidence &amp; Contributions...</span>
+              <span class="step-status">Waiting</span>
+            </div>
+          </div>
+        </div>
+        <div id="inspection-results-state" class="hidden">
+          <div class="inspection-score-banner">
+            <div class="score-circle-box">
+              <span class="score-num" id="inspection-score-val">78%</span>
+              <span class="score-lbl">READINESS INDEX</span>
+            </div>
+            <div class="score-stats-grid">
+              <div class="stat-pill pass"><span class="val">6</span> <span class="lbl">COMPLETED</span></div>
+              <div class="stat-pill warning"><span class="val">2</span> <span class="lbl">IN PROGRESS</span></div>
+              <div class="stat-pill fail"><span class="val">2</span> <span class="lbl">NOT STARTED</span></div>
+            </div>
+          </div>
+          <div class="inspection-priorities-box">
+            <div class="box-subtitle" style="color:#94a3b8; margin-bottom:12px;">Prioritized Action Items ("What to fix first"):</div>
+            <div class="priority-list" id="inspection-priority-list"><!-- Injected via JS --></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeInspectionModal()">Close Audit Window</button>
+        <button class="btn btn-primary" onclick="simulateReportDownload('Virtual_NBA_Inspection_Report.pdf')">Export Inspection Report PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GENERIC UPLOAD MODAL
+       ============================================================ -->
+  <div id="upload-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="upload-modal-title">Upload &amp; AI Extract Evidence Document</div>
+        <button class="modal-close-btn" onclick="closeUploadModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="upload-form" onsubmit="handleUploadSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Select Document File</label>
+            <input type="file" id="upload-file-input" class="form-control" required onchange="simulateFileSelection(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Criterion</label>
+            <select id="upload-criterion-select" class="form-control">
+              <option value="C3">Criterion 3 — Assessment &amp; Attainment</option>
+              <option value="C4">Criterion 4 — Student Performance</option>
+              <option value="C5">Criterion 5 — Faculty Information</option>
+              <option value="C6" selected>Criterion 6 — Faculty Contributions</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Associated Faculty Member</label>
+            <select id="upload-faculty-select" class="form-control">
+              <option value="Dr. XYZ">Dr. XYZ (Assoc. Prof)</option>
+              <option value="Dr. ABC">Dr. ABC (Prof)</option>
+              <option value="Prof. PQR">Prof. PQR (Asst. Prof)</option>
+            </select>
+          </div>
+          <div id="upload-ai-preview" class="panel-box alert-border hidden">
+            <div class="panel-header">
+              <div class="panel-title text-indigo">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/></svg>
+                AI Parsing Preview (Simulated OCR + Metadata Extraction)
+              </div>
+            </div>
+            <div class="ai-extracted-details" id="ai-extracted-details-content"><!-- Injected via JS --></div>
+          </div>
+          <div class="modal-footer" style="padding-top:15px; border:none;">
+            <button type="button" class="btn btn-secondary" onclick="closeUploadModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Upload &amp; Verify Evidence</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION DRAWER -->
+  <div id="notif-drawer" class="notif-drawer hidden">
+    <div class="drawer-header">
+      <span>System Notifications &amp; Audit Alerts</span>
+      <button class="close-btn" onclick="toggleNotifDrawer()">×</button>
+    </div>
+    <div class="drawer-body" id="notif-list-body"><!-- Injected via JS --></div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="src/utils/utils.js"></script>
+  <script src="src/components/Sidebar/sidebar.js"></script>
+  <script src="src/components/Charts/charts.js"></script>
+  <script src="src/components/DashboardCard/dashboardcard.js"></script>
+  <script src="src/components/DataTable/datatable.js"></script>
+  <script src="src/components/StatusBadge/statusbadge.js"></script>
+  <script src="src/components/FileUpload/fileupload.js"></script>
+
+  <script src="src/pages/Dashboard/dashboard.js"></script>
+  <script src="src/pages/Criterion3/criterion3.js"></script>
+  <script src="src/pages/Criterion4/criterion4.js"></script>
+  <script src="src/pages/Criterion5/criterion5.js"></script>
+  <script src="src/pages/Criterion6/criterion6.js"></script>
+  <script src="src/pages/GapAnalysis/gapanalysis.js"></script>
+  <script src="src/pages/Evidence/evidence.js"></script>
+  <script src="src/pages/VirtualInspection/virtualinspection.js"></script>
+  <script src="src/pages/Reports/reports.js"></script>
+  <script src="src/pages/AIAssistant/aiassistant.js"></script>
+  <script src="src/pages/Login/login.js"></script>
+
+  <script src="src/app.js"></script>
+</body>
+
+</html>
