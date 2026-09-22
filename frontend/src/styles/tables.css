@@ -1,0 +1,173 @@
+/* Tables & Matrix Styling for Criterion 3 */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: #ffffff;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.custom-table th {
+  background-color: var(--bg-card-subtle);
+  color: var(--text-main);
+  font-weight: 700;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.custom-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* 2D CO-PO-PSO Matrix Specific Styling */
+.matrix-table {
+  text-align: center;
+}
+
+.matrix-table th {
+  text-align: center;
+  font-size: 12px;
+}
+
+.matrix-table td {
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.matrix-cell {
+  width: 44px;
+  height: 38px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.cell-high {
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 700;
+}
+
+.cell-medium {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.cell-low {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.cell-none {
+  color: #cbd5e1;
+}
+
+/* CO Outcomes Cards */
+.co-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.co-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.co-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.co-tag {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--primary);
+  background-color: var(--primary-light);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.co-statement {
+  font-size: 13px;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.co-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Gap Analysis Alert Box */
+.gap-alert-card {
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  border-left: 5px solid #ef4444;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.gap-alert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.gap-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #991b1b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gap-description {
+  font-size: 13px;
+  color: #7f1d1d;
+  margin-bottom: 12px;
+}
+
+.action-item-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #fee2e2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
