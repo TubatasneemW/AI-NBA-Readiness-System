@@ -3,27 +3,1926 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NBA Digital Twin — Criterion 3 (Outcome-Based Assessment)</title>
-  
-  <!-- SEO & Accessibility -->
-  <meta name="description" content="AI & ML Department Digital Twin — Criterion 3 Outcome-Based Assessment & Attainment Dashboard for NBA Accreditation">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
-
-  <!-- Style Sheets -->
-  <link rel="stylesheet" href="./src/styles/main.css">
-  <link rel="stylesheet" href="./src/styles/login.css">
-  <link rel="stylesheet" href="./src/styles/sidebar.css">
-  <link rel="stylesheet" href="./src/styles/dashboard.css">
-  <link rel="stylesheet" href="./src/styles/tables.css">
-  <link rel="stylesheet" href="./src/styles/modal.css">
+  <title>Dashboard | NBA Digital Twin - AI & ML Department</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Main Application Container -->
-  <div id="app-container">
-    <div style="padding: 40px; text-align: center; color: #64748b;">Loading NBA Digital Twin Portal...</div>
+  <div class="app-container">
+    <!-- ====================================================================
+         LEFT SIDEBAR (Matching Exact Design)
+         ==================================================================== -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Sidebar Brand -->
+      <div class="sidebar-brand">
+        <div class="brand-logo-badge">
+          <div class="brand-logo-text">NBA<br><span style="font-size: 7.5px; opacity: 0.85;">TWIN</span></div>
+        </div>
+        <div class="brand-text">
+          <h2>NBA DIGITAL TWIN</h2>
+          <span>AI & ML Department</span>
+        </div>
+      </div>
+
+      <!-- Main Menu Label -->
+      <div class="sidebar-menu-label">MAIN MENU</div>
+
+      <!-- Navigation Links -->
+      <ul class="sidebar-nav">
+        <li class="nav-item active" data-module="dashboard">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="programme-info">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Programme Information</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="faculty-twin">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>Faculty Twin</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="student-twin">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Student Twin</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="course-curriculum">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <span>Course & Curriculum</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="copo-mapping">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+            <span>CO-PO-PSO Mapping</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="attainment-analysis">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+            <span>Attainment Analysis</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="research-publications">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span>Research & Publications</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="infrastructure-twin">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+            <span>Infrastructure Twin</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="placements">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <span>Placements & Internships</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="nba-criteria">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            <span>NBA Criteria & Compliance</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="document-repository">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>Document Repository</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="reports">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Reports</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="gap-analysis">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>Gap Analysis</span>
+          </a>
+        </li>
+        <li class="nav-item" data-module="ai-assistant">
+          <a class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+              <rect x="9" y="9" width="6" height="6"></rect>
+              <line x1="9" y1="1" x2="9" y2="4"></line>
+              <line x1="15" y1="1" x2="15" y2="4"></line>
+              <line x1="9" y1="20" x2="9" y2="23"></line>
+              <line x1="15" y1="20" x2="15" y2="23"></line>
+              <line x1="20" y1="9" x2="23" y2="9"></line>
+              <line x1="20" y1="14" x2="23" y2="14"></line>
+              <line x1="1" y1="9" x2="4" y2="9"></line>
+              <line x1="1" y1="14" x2="4" y2="14"></line>
+            </svg>
+            <span>AI Assistant</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Sidebar Bottom NBA Readiness Card -->
+      <div class="sidebar-readiness-card">
+        <div class="readiness-header">NBA Readiness</div>
+        <div class="readiness-value-wrap">
+          <div class="readiness-percentage" id="sidebar-readiness-val">78%</div>
+          <div class="readiness-badge" id="sidebar-readiness-badge">Good</div>
+        </div>
+        <div class="readiness-bar-track">
+          <div class="readiness-bar-fill" id="sidebar-readiness-bar"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         MAIN CONTENT WRAPPER
+         ==================================================================== -->
+    <main class="main-wrapper">
+      <!-- Topbar (Matching Exact Screenshot) -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" id="menuToggleBtn" title="Toggle Sidebar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="topbar-titles">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle">AI & ML Department Digital Twin – NBA Accreditation</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Notification Bell -->
+          <button class="notification-bell-btn" id="notificationBtn" title="View Recent Alerts">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge">5</span>
+          </button>
+
+          <!-- User Profile -->
+          <div class="user-profile-badge" id="userProfileBtn">
+            <div class="user-info">
+              <div class="user-name">Dr. Bharati Reshmi</div>
+              <div class="user-dept">AI & ML Department</div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=faces" alt="Dr. Bharati Reshmi" class="user-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Bharati+Reshmi&background=0D8ABC&color=fff'">
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <div class="content-body">
+        
+        <!-- ==================================================================
+             MODULE 1: DASHBOARD (Matching Exact Screenshot)
+             ================================================================== -->
+        <section class="module-view active" id="view-dashboard">
+          
+          <!-- Filter Controls Bar -->
+          <div class="filter-bar">
+            <div class="filter-group-wrap">
+              <div class="filter-field">
+                <span class="filter-label">Academic Year</span>
+                <select class="custom-select" id="academicYearSelect">
+                  <option value="2025-26" selected>2025-26</option>
+                  <option value="2024-25">2024-25</option>
+                  <option value="2023-24">2023-24</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <span class="filter-label">Semester</span>
+                <select class="custom-select" id="semesterSelect">
+                  <option value="even" selected>Even Semester</option>
+                  <option value="odd">Odd Semester</option>
+                  <option value="all">All Semesters</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <span class="filter-label">Programme</span>
+                <select class="custom-select" id="programmeSelect">
+                  <option value="aiml" selected>B.E AI & ML</option>
+                  <option value="cse">B.E Computer Science</option>
+                  <option value="ds">B.Tech Data Science</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="filter-actions-right">
+              <button class="btn-quick-inspect" id="btnRunInspection" title="Simulate Virtual NBA Inspection">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Run Inspection</span>
+              </button>
+
+              <button class="btn-download-report" id="btnDownloadReport">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download Report</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Top Row: 6 KPI Cards with Circular Gauges -->
+          <div class="kpi-cards-grid">
+            <!-- 1. NBA Readiness Score -->
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">NBA Readiness Score</span>
+                <span class="kpi-value blue" id="kpi-readiness-val">78%</span>
+                <span class="kpi-status-tag good" id="kpi-readiness-status">Good</span>
+              </div>
+              <div class="kpi-gauge-wrap">
+                <svg viewBox="0 0 36 36">
+                  <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="gauge-fill blue" id="gauge-readiness" stroke-dasharray="78, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- 2. Criteria Completed -->
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Criteria Completed</span>
+                <span class="kpi-value" id="kpi-criteria-val">6 / 10</span>
+                <span class="kpi-status-tag good">Good</span>
+              </div>
+              <div class="kpi-gauge-wrap">
+                <svg viewBox="0 0 36 36">
+                  <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="gauge-fill green" stroke-dasharray="60, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- 3. CO Attainment -->
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">CO Attainment</span>
+                <span class="kpi-value orange" id="kpi-co-val">72%</span>
+                <span class="kpi-status-tag needs-improvement">Needs Improvement</span>
+              </div>
+              <div class="kpi-gauge-wrap">
+                <svg viewBox="0 0 36 36">
+                  <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="gauge-fill orange" stroke-dasharray="72, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- 4. PO Attainment -->
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">PO Attainment</span>
+                <span class="kpi-value orange" id="kpi-po-val">68%</span>
+                <span class="kpi-status-tag needs-improvement">Needs Improvement</span>
+              </div>
+              <div class="kpi-gauge-wrap">
+                <svg viewBox="0 0 36 36">
+                  <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="gauge-fill orange" stroke-dasharray="68, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- 5. PSO Attainment -->
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">PSO Attainment</span>
+                <span class="kpi-value green" id="kpi-pso-val">75%</span>
+                <span class="kpi-status-tag good">Good</span>
+              </div>
+              <div class="kpi-gauge-wrap">
+                <svg viewBox="0 0 36 36">
+                  <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="gauge-fill green" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- 6. Documents Uploaded -->
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Documents Uploaded</span>
+                <span class="kpi-value" id="kpi-docs-val">126 / 180</span>
+                <span class="kpi-status-tag in-progress">In Progress</span>
+              </div>
+              <div class="kpi-doc-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Analytical Row: 3 Visual Analytics Cards (Equal Height) -->
+          <div class="analytical-row-grid">
+            
+            <!-- Card 1: CO - PO Attainment Overview Bar Chart -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">CO – PO Attainment Overview</h3>
+                <a class="card-action-link" data-switch-to="attainment-analysis">View Details</a>
+              </div>
+
+              <!-- Legend -->
+              <div class="chart-legend-row">
+                <div class="legend-item">
+                  <div class="legend-color-box target"></div>
+                  <span>Target</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color-box attainment"></div>
+                  <span>Attainment</span>
+                </div>
+              </div>
+
+              <!-- Chart SVG Canvas -->
+              <div class="copo-chart-container" id="copoChartContainer">
+                <!-- SVG Bar Chart is injected and rendered dynamically via JS -->
+              </div>
+            </div>
+
+            <!-- Card 2: NBA Criteria Status Donut -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">NBA Criteria Status</h3>
+                <a class="card-action-link" data-switch-to="nba-criteria">View All</a>
+              </div>
+
+              <div class="criteria-status-body">
+                <!-- Center Donut -->
+                <div class="donut-chart-wrapper">
+                  <svg viewBox="0 0 42 42" width="135" height="135">
+                    <!-- Base Track -->
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#f1f5f9" stroke-width="4.5"></circle>
+                    <!-- Completed (6/10 = 60%) Green: dash 60 40, offset 25 -->
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#22c55e" stroke-width="4.5"
+                            stroke-dasharray="60 40" stroke-dashoffset="25"></circle>
+                    <!-- In Progress (2/10 = 20%) Orange: dash 20 80, offset -35 -->
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#f97316" stroke-width="4.5"
+                            stroke-dasharray="20 80" stroke-dashoffset="-35"></circle>
+                    <!-- Not Started (2/10 = 20%) Red: dash 20 80, offset -55 -->
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ef4444" stroke-width="4.5"
+                            stroke-dasharray="20 80" stroke-dashoffset="-55"></circle>
+                  </svg>
+                  <div class="donut-center-label">
+                    <span class="donut-number">10</span>
+                    <span class="donut-text">Criteria</span>
+                  </div>
+                </div>
+
+                <!-- Legend List -->
+                <ul class="criteria-legend-list">
+                  <li class="criteria-legend-row">
+                    <span class="status-dot green"></span>
+                    <span>6 Completed</span>
+                  </li>
+                  <li class="criteria-legend-row">
+                    <span class="status-dot orange"></span>
+                    <span>2 In Progress</span>
+                  </li>
+                  <li class="criteria-legend-row">
+                    <span class="status-dot red"></span>
+                    <span>2 Not Started</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Card 3: Criteria Wise Progress -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Criteria Wise Progress</h3>
+                <a class="card-action-link" data-switch-to="nba-criteria">View All</a>
+              </div>
+
+              <div class="criteria-progress-list" id="criteriaProgressList">
+                <!-- 1. Vision, Mission & PEOs -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">1.</span>
+                    <span>Vision, Mission & PEOs</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill green" style="width: 100%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">100%</span>
+                  </div>
+                </div>
+
+                <!-- 2. Curriculum Design & Dev. -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">2.</span>
+                    <span>Curriculum Design & Dev.</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill green" style="width: 90%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">90%</span>
+                  </div>
+                </div>
+
+                <!-- 3. Teaching – Learning -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">3.</span>
+                    <span>Teaching – Learning</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill green" style="width: 75%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">75%</span>
+                  </div>
+                </div>
+
+                <!-- 4. Assessment Process -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">4.</span>
+                    <span>Assessment Process</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill orange" style="width: 60%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">60%</span>
+                  </div>
+                </div>
+
+                <!-- 5. Faculty -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">5.</span>
+                    <span>Faculty</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill green" style="width: 80%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">80%</span>
+                  </div>
+                </div>
+
+                <!-- 6. Facilities & Infrastructure -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">6.</span>
+                    <span>Facilities & Infrastructure</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill orange" style="width: 70%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">70%</span>
+                  </div>
+                </div>
+
+                <!-- 7. Students Support -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">7.</span>
+                    <span>Students Support</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill green" style="width: 80%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">80%</span>
+                  </div>
+                </div>
+
+                <!-- 8. Research & Innovations -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">8.</span>
+                    <span>Research & Innovations</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill red" style="width: 50%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">50%</span>
+                  </div>
+                </div>
+
+                <!-- 9. Continuous Improvement -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">9.</span>
+                    <span>Continuous Improvement</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill red" style="width: 40%;"></div>
+                    </div>
+                    <span class="criterion-percent-text">40%</span>
+                  </div>
+                </div>
+
+                <!-- 10. Overall Performance -->
+                <div class="criteria-progress-item">
+                  <div class="criterion-title-wrap">
+                    <span class="criterion-num">10.</span>
+                    <span>Overall Performance</span>
+                  </div>
+                  <div class="criterion-bar-wrapper">
+                    <div class="criterion-bar-track">
+                      <div class="criterion-bar-fill gray" style="width: 35%;"></div>
+                    </div>
+                    <span class="criterion-percent-text status-text">In Progress</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lower Row: 4 Overview Cards (Equal Height) -->
+          <div class="overview-cards-grid">
+            
+            <!-- 1. Faculty Overview -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Faculty Overview</h3>
+                <a class="card-action-link" data-switch-to="faculty-twin">View Details</a>
+              </div>
+              <div class="metric-rows-list">
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    <span>Total Faculty</span>
+                  </div>
+                  <div class="metric-row-val">28</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                    <span>Ph.D. Qualified</span>
+                  </div>
+                  <div class="metric-row-val">16 (57%)</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>Publications (2025)</span>
+                  </div>
+                  <div class="metric-row-val">42</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                    <span>FDPs Attended</span>
+                  </div>
+                  <div class="metric-row-val">34</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    <span>Workload Status</span>
+                  </div>
+                  <div class="metric-row-val good">Good</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Student Overview -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Student Overview</h3>
+                <a class="card-action-link" data-switch-to="student-twin">View Details</a>
+              </div>
+              <div class="metric-rows-list">
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span>Total Students</span>
+                  </div>
+                  <div class="metric-row-val">196</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <span>Average CGPA</span>
+                  </div>
+                  <div class="metric-row-val">7.89</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Placement Rate</span>
+                  </div>
+                  <div class="metric-row-val">84%</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Internship Completed</span>
+                  </div>
+                  <div class="metric-row-val">92%</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                    <span>Attendance (Avg.)</span>
+                  </div>
+                  <div class="metric-row-val">89%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Infrastructure Overview -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Infrastructure Overview</h3>
+                <a class="card-action-link" data-switch-to="infrastructure-twin">View Details</a>
+              </div>
+              <div class="metric-rows-list">
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 13h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H2v10z"></path><path d="M14 21h8v-6a2 2 0 0 0-2-2h-6v8z"></path></svg>
+                    <span>Total Labs</span>
+                  </div>
+                  <div class="metric-row-val">8</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    <span>Lab Utilization</span>
+                  </div>
+                  <div class="metric-row-val">82%</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                    <span>Equipments Available</span>
+                  </div>
+                  <div class="metric-row-val">156</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    <span>Equipments Required</span>
+                  </div>
+                  <div class="metric-row-val">28</div>
+                </div>
+                <div class="metric-row-item">
+                  <div class="metric-row-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    <span>Gap</span>
+                  </div>
+                  <div class="metric-row-val danger">18%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Recent Alerts / Notifications -->
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Recent Alerts / Notifications</h3>
+                <a class="card-action-link" id="btnViewAllAlerts">View All</a>
+              </div>
+              <div class="alerts-list">
+                <!-- Alert 1 -->
+                <div class="alert-item">
+                  <div class="alert-icon-circle danger">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                  </div>
+                  <div class="alert-content-wrap">
+                    <div class="alert-message">PO3 attainment is below target (58%).</div>
+                    <div class="alert-timestamp">2 hours ago</div>
+                  </div>
+                </div>
+
+                <!-- Alert 2 -->
+                <div class="alert-item">
+                  <div class="alert-icon-circle warning">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  </div>
+                  <div class="alert-content-wrap">
+                    <div class="alert-message">Documents missing in Criteria 4.</div>
+                    <div class="alert-timestamp">6 hours ago</div>
+                  </div>
+                </div>
+
+                <!-- Alert 3 -->
+                <div class="alert-item">
+                  <div class="alert-icon-circle info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                  </div>
+                  <div class="alert-content-wrap">
+                    <div class="alert-message">FDP data for 3 faculty members is pending.</div>
+                    <div class="alert-timestamp">1 day ago</div>
+                  </div>
+                </div>
+
+                <!-- Alert 4 -->
+                <div class="alert-item">
+                  <div class="alert-icon-circle success">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <div class="alert-content-wrap">
+                    <div class="alert-message">CO attainment data updated for Semester 4.</div>
+                    <div class="alert-timestamp">2 days ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom: AI Assistant Prompt Bar & Action Chips -->
+          <div class="ai-assistant-banner">
+            <div class="ai-branding">
+              <div class="ai-avatar-glow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                  <circle cx="12" cy="5" r="2"></circle>
+                  <path d="M12 7v4"></path>
+                  <line x1="8" y1="16" x2="8" y2="16"></line>
+                  <line x1="16" y1="16" x2="16" y2="16"></line>
+                </svg>
+              </div>
+              <div class="ai-title-group">
+                <h3>AI Assistant</h3>
+                <span>Your NBA Compliance Assistant</span>
+              </div>
+            </div>
+
+            <div class="ai-prompts-center">
+              <span class="ai-prompt-heading">Ask anything about NBA, CO-PO attainment, criteria, documents...</span>
+              <div class="ai-chips-list">
+                <button class="ai-chip-btn" data-query="What is our current CO attainment status across courses?">CO Attainment Status</button>
+                <button class="ai-chip-btn" data-query="Show me the PO gap analysis and weakest outcomes.">PO Gap Analysis</button>
+                <button class="ai-chip-btn" data-query="Which documents are currently missing for Criteria 4 and 5?">Missing Documents</button>
+                <button class="ai-chip-btn" data-query="Summarize faculty research publications and patents for 2025-26.">Research Summary</button>
+                <button class="ai-chip-btn" data-query="Give me 3 prioritized recommendations to increase our NBA readiness above 85%.">Readiness Suggestions</button>
+              </div>
+            </div>
+
+            <div class="ai-input-wrap">
+              <input type="text" class="ai-input-field" id="bannerAiInput" placeholder="Type your question..." />
+              <button class="ai-send-btn" id="bannerAiSendBtn" title="Send question">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 2: PROGRAMME INFORMATION
+             ================================================================== -->
+        <section class="module-view" id="view-programme-info">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Programme Information (Criterion 1)</h2>
+              <p>Vision, Mission, PEOs, PSOs and Department Objectives</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-secondary" onclick="exportModuleData('Programme_Info')">Export SAR Table 1.1</button>
+              <button class="btn-primary" onclick="alert('Program details updated in Digital Twin!')">Save Changes</button>
+            </div>
+          </div>
+
+          <div class="analytical-row-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Department Vision</h3>
+              </div>
+              <p style="font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;">
+                "To become a centre of excellence in Artificial Intelligence and Machine Learning education, research, and innovation, producing socially responsible and technologically proficient engineers capable of solving real-world challenges."
+              </p>
+              <div style="margin-top: 14px;">
+                <span class="status-pill success">Verified in DAB Minutes (2024-25)</span>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="card-header-bar">
+                <h3 class="card-title">Department Mission</h3>
+              </div>
+              <ul style="font-size: 11.5px; color: var(--text-secondary); line-height: 1.6; padding-left: 16px;">
+                <li><strong>M1:</strong> Deliver industry-aligned curriculum in AI, Deep Learning, and intelligent automation.</li>
+                <li><strong>M2:</strong> Foster interdisciplinary research and entrepreneurship through modern labs and industry partnerships.</li>
+                <li><strong>M3:</strong> Inculcate professional ethics, lifelong learning, and sustainable engineering mindsets.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="table-card" style="margin-top: 16px;">
+            <div class="table-toolbar">
+              <h4 style="font-size: 12px; font-weight: 700;">Program Educational Objectives (PEOs) Mapping</h4>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>PEO ID</th>
+                  <th>Educational Objective Statement</th>
+                  <th>Target Year</th>
+                  <th>Mission Alignment</th>
+                  <th>Compliance Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>PEO-1</strong></td>
+                  <td>Core Competence: Graduates analyze and design intelligent computing systems.</td>
+                  <td>3-5 Yrs Post Grad</td>
+                  <td>M1, M2</td>
+                  <td><span class="status-pill success">Documented & Approved</span></td>
+                </tr>
+                <tr>
+                  <td><strong>PEO-2</strong></td>
+                  <td>Professional Innovation: Graduates adapt to evolving AI trends and lead tech teams.</td>
+                  <td>3-5 Yrs Post Grad</td>
+                  <td>M1, M3</td>
+                  <td><span class="status-pill success">Documented & Approved</span></td>
+                </tr>
+                <tr>
+                  <td><strong>PEO-3</strong></td>
+                  <td>Ethics & Societal Impact: Demonstrate ethical responsibility and environmental awareness.</td>
+                  <td>3-5 Yrs Post Grad</td>
+                  <td>M3</td>
+                  <td><span class="status-pill success">Documented & Approved</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 3: FACULTY TWIN
+             ================================================================== -->
+        <section class="module-view" id="view-faculty-twin">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Faculty Twin (Criterion 5: Cadre, Qualifications, SFR)</h2>
+              <p>Live digital twin of all 28 department faculty members, qualifications, research, and workload</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-secondary" onclick="openUploadModal('Faculty Profile')">Upload Evidence Doc</button>
+              <button class="btn-primary" onclick="alert('Faculty-to-student ratio is 1:14 (NBA requirement <= 1:15 satisfied).')">Check SFR Compliance</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="facultySearchInput" placeholder="Search faculty name, designation, Ph.D..." onkeyup="filterFacultyTable()">
+              </div>
+              <div>
+                <span class="filter-label">Faculty-Student Ratio: <strong>1 : 14</strong></span>
+                <span class="status-pill success" style="margin-left: 8px;">🟢 Compliant</span>
+              </div>
+            </div>
+            <div class="data-table-container">
+              <table class="data-table" id="facultyTable">
+                <thead>
+                  <tr>
+                    <th>Faculty Name</th>
+                    <th>Designation</th>
+                    <th>Qualification</th>
+                    <th>Workload (Hrs/Wk)</th>
+                    <th>Publications</th>
+                    <th>FDPs (2025)</th>
+                    <th>Evidence Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="facultyTableBody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 4: STUDENT TWIN
+             ================================================================== -->
+        <section class="module-view" id="view-student-twin">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Student Twin (Criterion 4: Academic Performance & Support)</h2>
+              <p>Tracking 196 students across performance metrics, at-risk alerts, and placement readiness</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-secondary" onclick="alert('Mentoring meeting logs synced for 196 students.')">Sync Mentoring Logs</button>
+              <button class="btn-primary" onclick="alert('Identified 8 at-risk students for remedial sessions.')">AI At-Risk Diagnostic</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="studentSearchInput" placeholder="Search USN, name, semester..." onkeyup="filterStudentTable()">
+              </div>
+              <div style="font-size: 11px; color: var(--text-muted);">
+                Batch: <strong>2022-2026</strong> | Total Strength: <strong>196</strong>
+              </div>
+            </div>
+            <div class="data-table-container">
+              <table class="data-table" id="studentTable">
+                <thead>
+                  <tr>
+                    <th>USN</th>
+                    <th>Student Name</th>
+                    <th>Semester</th>
+                    <th>CGPA</th>
+                    <th>Attendance %</th>
+                    <th>Backlogs</th>
+                    <th>Internship</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 5: COURSE & CURRICULUM
+             ================================================================== -->
+        <section class="module-view" id="view-course-curriculum">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Course & Curriculum Twin (Criterion 1 & 2)</h2>
+              <p>40 Department courses, syllabus schemes, lesson plans, and course file compliance</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-secondary" onclick="openUploadModal('Course File')">Upload Course File</button>
+              <button class="btn-primary" onclick="alert('Course file audit triggered. 37/40 verified.')">Audit Course Files</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <h4 style="font-size: 12px; font-weight: 700;">Department Course Inventory (Semester 6 & 8)</h4>
+              <span class="status-pill warning">3 Files Incomplete</span>
+            </div>
+            <div class="data-table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                    <th>Course Coordinator</th>
+                    <th>Lesson Plan</th>
+                    <th>CO Mapping</th>
+                    <th>Course File Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>22AI61</strong></td>
+                    <td>Machine Learning & Pattern Rec.</td>
+                    <td>4</td>
+                    <td>Dr. Anand Rao</td>
+                    <td><span class="status-pill success">Uploaded</span></td>
+                    <td><span class="status-pill success">Approved</span></td>
+                    <td><span class="status-pill danger" id="ml-coursefile-badge">70% (Missing Remedial Log)</span></td>
+                    <td><button class="btn-secondary" style="padding: 3px 8px; font-size: 10px;" onclick="triggerMachineLearningFix()">Resolve Gap</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>22AI62</strong></td>
+                    <td>Deep Neural Networks</td>
+                    <td>4</td>
+                    <td>Dr. Bharati Reshmi</td>
+                    <td><span class="status-pill success">Uploaded</span></td>
+                    <td><span class="status-pill success">Approved</span></td>
+                    <td><span class="status-pill success">100% Complete</span></td>
+                    <td><button class="btn-secondary" style="padding: 3px 8px; font-size: 10px;" onclick="alert('Viewing course file 22AI62')">View File</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>22AI63</strong></td>
+                    <td>Natural Language Processing</td>
+                    <td>3</td>
+                    <td>Prof. Sneha Deshmukh</td>
+                    <td><span class="status-pill success">Uploaded</span></td>
+                    <td><span class="status-pill success">Approved</span></td>
+                    <td><span class="status-pill success">100% Complete</span></td>
+                    <td><button class="btn-secondary" style="padding: 3px 8px; font-size: 10px;" onclick="alert('Viewing course file 22AI63')">View File</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 6: CO-PO-PSO MAPPING MATRIX
+             ================================================================== -->
+        <section class="module-view" id="view-copo-mapping">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>CO-PO-PSO Mapping Matrix (Criterion 3)</h2>
+              <p>Correlation level matrix (1: Slight, 2: Moderate, 3: Substantial) for Course: Machine Learning (22AI61)</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-secondary" onclick="alert('Correlation sheet generated.')">Justification Sheet</button>
+              <button class="btn-primary" onclick="alert('Matrix validated against NBA criterion 3!')">Validate Matrix</button>
+            </div>
+          </div>
+
+          <div class="table-card" style="padding: 14px;">
+            <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong>Course:</strong> 22AI61 - Machine Learning &nbsp;|&nbsp;
+                <strong>Target Attainment:</strong> 80%
+              </div>
+              <div style="font-size: 10.5px; color: var(--text-muted);">
+                Level 3: Substantial (Blue) &nbsp;|&nbsp; Level 2: Moderate (Purple) &nbsp;|&nbsp; Level 1: Slight (Gray)
+              </div>
+            </div>
+
+            <div class="data-table-container">
+              <table class="mapping-matrix-table">
+                <thead>
+                  <tr>
+                    <th>CO Statement</th>
+                    <th>PO1</th>
+                    <th>PO2</th>
+                    <th>PO3</th>
+                    <th>PO4</th>
+                    <th>PO5</th>
+                    <th>PO6</th>
+                    <th>PO7</th>
+                    <th>PO8</th>
+                    <th>PO9</th>
+                    <th>PO10</th>
+                    <th>PO11</th>
+                    <th>PO12</th>
+                    <th>PSO1</th>
+                    <th>PSO2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="text-align: left; max-width: 240px;"><strong>CO1:</strong> Explain ML fundamentals & optimization</td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: left; max-width: 240px;"><strong>CO2:</strong> Apply regression & supervised classification</td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: left; max-width: 240px;"><strong>CO3:</strong> Design unsupervised clustering pipelines</td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: left; max-width: 240px;"><strong>CO4:</strong> Evaluate models using cross-validation</td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-0">-</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-1">1</span></td>
+                    <td><span class="matrix-cell-val level-2">2</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                    <td><span class="matrix-cell-val level-3">3</span></td>
+                  </tr>
+                  <tr style="background-color: #f8fafc; font-weight: 700;">
+                    <td style="text-align: left;">Average Correlation</td>
+                    <td>2.75</td>
+                    <td>2.75</td>
+                    <td>2.00</td>
+                    <td>2.50</td>
+                    <td>2.33</td>
+                    <td>1.00</td>
+                    <td>-</td>
+                    <td>1.00</td>
+                    <td>1.50</td>
+                    <td>1.00</td>
+                    <td>1.00</td>
+                    <td>2.00</td>
+                    <td>3.00</td>
+                    <td>2.50</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 7: ATTAINMENT ANALYSIS
+             ================================================================== -->
+        <section class="module-view" id="view-attainment-analysis">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Attainment Analysis & Calculations (Criterion 3)</h2>
+              <p>Direct Attainment (Internal tests 80% + Sem exam 20%) & Indirect Attainment (Exit survey)</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="alert('Attainment recalculated!')">Recalculate Batch Attainment</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <h4 style="font-size: 12px; font-weight: 700;">Program Outcomes (PO1 to PO12) Attainment Breakdown</h4>
+              <span class="status-pill warning">PO3 Gap: 22% Below Target</span>
+            </div>
+            <div class="data-table-container">
+              <table class="data-table" id="attainmentSummaryTable">
+                <thead>
+                  <tr>
+                    <th>Outcome</th>
+                    <th>Target %</th>
+                    <th>Direct Attainment (80%)</th>
+                    <th>Indirect Attainment (20%)</th>
+                    <th>Overall Attainment</th>
+                    <th>Gap vs Target</th>
+                    <th>Action Required</th>
+                  </tr>
+                </thead>
+                <tbody id="attainmentTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 8: RESEARCH & PUBLICATIONS
+             ================================================================== -->
+        <section class="module-view" id="view-research-publications">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Faculty Research & Innovations (Criterion 6)</h2>
+              <p>Publications, Patents, Consultancy, and Research Grants tracked in the Digital Twin</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="openUploadModal('Research Paper')">Add Paper / Patent</button>
+            </div>
+          </div>
+
+          <div class="kpi-cards-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 14px;">
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">SCI / Scopus Papers</span>
+                <span class="kpi-value blue">42</span>
+                <span class="kpi-status-tag good">+14 vs Last Year</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Patents Published</span>
+                <span class="kpi-value green">6</span>
+                <span class="kpi-status-tag good">2 Granted</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Funded Grants</span>
+                <span class="kpi-value">₹ 48.5 L</span>
+                <span class="kpi-status-tag in-progress">DST & VGST</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Consultancy</span>
+                <span class="kpi-value green">₹ 14.2 L</span>
+                <span class="kpi-status-tag good">Active Industry MoU</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 9: INFRASTRUCTURE TWIN
+             ================================================================== -->
+        <section class="module-view" id="view-infrastructure-twin">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Infrastructure & Laboratory Twin (Criterion 7)</h2>
+              <p>8 Specialized Labs, 156 high-end systems, maintenance and calibration evidence logs</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="openUploadModal('Lab Calibration Record')">Upload Calibration Log</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <h4 style="font-size: 12px; font-weight: 700;">Department Laboratories & Equipment Status</h4>
+              <span class="status-pill warning">Lab 4: 2 GPU Servers Maintenance Due</span>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Lab Name</th>
+                  <th>Location</th>
+                  <th>Equipments / GPUs</th>
+                  <th>Faculty In-Charge</th>
+                  <th>Stock Register</th>
+                  <th>Calibration / AMC</th>
+                  <th>Compliance Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>AI & Deep Learning Centre of Excellence</strong></td>
+                  <td>Lab Block 301</td>
+                  <td>60 Workstations, 10 NVIDIA RTX GPUs</td>
+                  <td>Dr. Anand Rao</td>
+                  <td><span class="status-pill success">Verified</span></td>
+                  <td><span class="status-pill success">Valid (Valid till Dec 2026)</span></td>
+                  <td><span class="status-pill success">🟢 Compliant</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Data Science & Big Data Lab</strong></td>
+                  <td>Lab Block 302</td>
+                  <td>60 PCs, Hadoop & Spark Clusters</td>
+                  <td>Prof. Rajesh Kumar</td>
+                  <td><span class="status-pill success">Verified</span></td>
+                  <td><span class="status-pill success">Valid</span></td>
+                  <td><span class="status-pill success">🟢 Compliant</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 10: PLACEMENTS & INTERNSHIPS
+             ================================================================== -->
+        <section class="module-view" id="view-placements">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Placements & Higher Studies (Criterion 4.6 & 4.7)</h2>
+              <p>Placement statistics, MoUs, median package, and internships evidence</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="exportModuleData('Placements')">Export Placement SAR</button>
+            </div>
+          </div>
+
+          <div class="kpi-cards-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 14px;">
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Placement Rate</span>
+                <span class="kpi-value green">84%</span>
+                <span class="kpi-status-tag good">164 / 196 Placed</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Highest CTC</span>
+                <span class="kpi-value blue">₹ 28.5 LPA</span>
+                <span class="kpi-status-tag good">Microsoft IDC</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Median CTC</span>
+                <span class="kpi-value">₹ 9.6 LPA</span>
+                <span class="kpi-status-tag good">Consistent Trend</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-meta">
+                <span class="kpi-title">Higher Studies</span>
+                <span class="kpi-value green">14</span>
+                <span class="kpi-status-tag good">GRE/GATE Qualified</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 11: NBA CRITERIA & COMPLIANCE
+             ================================================================== -->
+        <section class="module-view" id="view-nba-criteria">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>NBA Criteria Compliance Engine (C1 to C9)</h2>
+              <p>Automated verification against SAR standards: PASS 🟢 | WARNING 🟡 | FAIL 🔴</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="document.getElementById('btnRunInspection').click()">Run Full Virtual Audit</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Criterion</th>
+                  <th>Description</th>
+                  <th>Max Marks</th>
+                  <th>Estimated Score</th>
+                  <th>Evidence Uploaded</th>
+                  <th>Compliance Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Criterion 1</strong></td>
+                  <td>Vision, Mission & Program Educational Objectives</td>
+                  <td>60</td>
+                  <td><strong>58</strong></td>
+                  <td>14 / 14 Docs</td>
+                  <td><span class="status-pill success">🟢 PASS</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="alert('Viewing Criterion 1')">View</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Criterion 2</strong></td>
+                  <td>Program Curriculum & Teaching–Learning Processes</td>
+                  <td>120</td>
+                  <td><strong>108</strong></td>
+                  <td>28 / 30 Docs</td>
+                  <td><span class="status-pill success">🟢 PASS</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="alert('Viewing Criterion 2')">View</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Criterion 3</strong></td>
+                  <td>Course Outcomes & Program Outcomes (Attainment)</td>
+                  <td>120</td>
+                  <td><strong>86</strong></td>
+                  <td>22 / 28 Docs</td>
+                  <td><span class="status-pill warning">🟡 WARNING</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="alert('Viewing Criterion 3 gaps')">Gaps</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Criterion 4</strong></td>
+                  <td>Students' Performance (Success Rate, Placements)</td>
+                  <td>150</td>
+                  <td><strong>132</strong></td>
+                  <td>26 / 30 Docs</td>
+                  <td><span class="status-pill success">🟢 PASS</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="alert('Viewing Criterion 4')">View</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Criterion 5</strong></td>
+                  <td>Faculty Information & Contributions (SFR, Cadre)</td>
+                  <td>200</td>
+                  <td><strong>174</strong></td>
+                  <td>32 / 34 Docs</td>
+                  <td><span class="status-pill success">🟢 PASS</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="alert('Viewing Criterion 5')">View</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Criterion 6</strong></td>
+                  <td>Facilities and Technical Support (Laboratories, GPUs)</td>
+                  <td>80</td>
+                  <td><strong>68</strong></td>
+                  <td>16 / 18 Docs</td>
+                  <td><span class="status-pill success">🟢 PASS</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="alert('Viewing Criterion 6')">View</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Criterion 7</strong></td>
+                  <td>Continuous Improvement (Action Taken Reports, ATR)</td>
+                  <td>50</td>
+                  <td><strong>32</strong></td>
+                  <td>10 / 16 Docs</td>
+                  <td><span class="status-pill danger">🔴 ACTION REQ</span></td>
+                  <td><button class="btn-secondary" style="padding: 3px 6px; font-size: 10px;" onclick="triggerMachineLearningFix()">Upload ATR</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 12: DOCUMENT REPOSITORY
+             ================================================================== -->
+        <section class="module-view" id="view-document-repository">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Evidence Document Repository & Document AI</h2>
+              <p>Every file is enriched with metadata: Who uploaded, Course, Year, Criterion, Verification status</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="openUploadModal('General Evidence')">Upload New Evidence</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="docSearchInput" placeholder="Filter documents..." onkeyup="filterDocsTable()">
+              </div>
+              <div style="font-size: 11px; color: var(--text-muted);">
+                Total Evidence Files: <strong id="totalDocsCount">126</strong> / 180 Verified
+              </div>
+            </div>
+            <div class="data-table-container">
+              <table class="data-table" id="documentsTable">
+                <thead>
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Criterion</th>
+                    <th>Course / Faculty</th>
+                    <th>Uploaded By</th>
+                    <th>Date</th>
+                    <th>Document AI Classification</th>
+                    <th>Verification</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="documentsTableBody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 13: REPORTS
+             ================================================================== -->
+        <section class="module-view" id="view-reports">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Automated SAR & Accreditation Reports</h2>
+              <p>Generate one-click official NBA SAR formatted documents, ATRs, and readiness dossiers</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="openReportModal()">Generate New Report</button>
+            </div>
+          </div>
+
+          <div class="analytical-row-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="dashboard-card">
+              <h3 class="card-title">Comprehensive SAR Dossier</h3>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 8px 0 14px;">
+                Complete Self-Assessment Report complying with NBA Tier-I format. Includes Criteria 1 through 9.
+              </p>
+              <button class="btn-secondary" onclick="downloadSampleReport('Complete_SAR_AI_ML.pdf')">Download PDF</button>
+            </div>
+
+            <div class="dashboard-card">
+              <h3 class="card-title">Action Taken Report (ATR)</h3>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 8px 0 14px;">
+                Continuous improvement evidence loop connecting weak COs to remedial sessions and new evaluations.
+              </p>
+              <button class="btn-secondary" onclick="downloadSampleReport('Action_Taken_Report_ATR.pdf')">Download ATR</button>
+            </div>
+
+            <div class="dashboard-card">
+              <h3 class="card-title">CO-PO Attainment Sheets</h3>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 8px 0 14px;">
+                Detailed Excel spreadsheets containing raw marks, direct/indirect attainment, and threshold matrices.
+              </p>
+              <button class="btn-secondary" onclick="downloadSampleReport('Attainment_Calculations_2025.xlsx')">Export Excel (.xlsx)</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 14: GAP ANALYSIS
+             ================================================================== -->
+        <section class="module-view" id="view-gap-analysis">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>Gap Analysis & Continuous Improvement (Criterion 8)</h2>
+              <p>Problem ➔ Action ➔ Responsible Person ➔ Deadline ➔ Evidence ➔ Result (The Continuous Loop)</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-primary" onclick="alert('Gap audit updated!')">Run AI Gap Scanner</button>
+            </div>
+          </div>
+
+          <!-- Featured Critical Gap Card (From PDF Section 23-24) -->
+          <div class="gap-finding-card" id="criticalGapCard">
+            <div class="gap-finding-header">
+              <div class="gap-badge">
+                <span>CRITICAL GAP IDENTIFIED</span>
+              </div>
+              <span style="font-size: 10.5px; font-weight: 600; color: #dc2626;">High Priority Audit Alert</span>
+            </div>
+            <div class="gap-finding-details">
+              <div><strong>Course:</strong> Machine Learning & Pattern Rec. (22AI61)</div>
+              <div><strong>Issue:</strong> Course file incomplete. Missing student feedback analysis and remedial class evidence for weak CO2.</div>
+              <div><strong>Responsible Person:</strong> Dr. Anand Rao (Course Coordinator)</div>
+              <div><strong>Recommended Action:</strong> Upload feedback analysis report and remedial class attendance log with re-assessment marks.</div>
+              <div><strong>Deadline:</strong> 5 days (Due: Oct 31, 2026)</div>
+            </div>
+            <div class="gap-action-box" id="gapActionBox">
+              <div style="font-size: 11px; color: var(--text-secondary);">
+                <strong>Current Course File Status:</strong> <span style="color: #dc2626; font-weight: 700;" id="gapCourseFileStatus">70% Complete 🔴</span>
+              </div>
+              <button class="btn-resolve-gap" id="btnResolveCriticalGap" onclick="triggerMachineLearningFix()">
+                Simulate Faculty Upload & Resolve Gap
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             MODULE 15: AI ASSISTANT
+             ================================================================== -->
+        <section class="module-view" id="view-ai-assistant">
+          <div class="module-header">
+            <div class="module-title-wrap">
+              <h2>AI Accreditation Assistant & RAG Engine</h2>
+              <p>Knowledge base indexed with NBA Manual, Department SAR, Syllabus, and Faculty Records</p>
+            </div>
+            <div class="module-action-buttons">
+              <button class="btn-secondary" onclick="clearChat()">Clear Chat</button>
+            </div>
+          </div>
+
+          <div class="dashboard-card" style="max-width: 840px; margin: 0 auto;">
+            <!-- Agent Switcher Header -->
+            <div style="display: flex; gap: 6px; margin-bottom: 10px; border-bottom: 1px solid var(--border-light); padding-bottom: 8px; overflow-x: auto;">
+              <button class="ai-chip-btn" style="background-color: #dbeafe; border-color: #3b82f6;">Compliance Agent</button>
+              <button class="ai-chip-btn">Document Agent</button>
+              <button class="ai-chip-btn">Assessment Agent</button>
+              <button class="ai-chip-btn">Report Agent</button>
+            </div>
+
+            <!-- Chat Window -->
+            <div class="chat-messages-container" id="fullChatContainer">
+              <div class="chat-bubble bot">
+                <div class="chat-bubble-avatar">AI</div>
+                <div class="chat-bubble-content">
+                  Hello Dr. Bharati Reshmi! I am your <strong>NBA Digital Twin AI Assistant</strong>. I have indexed the entire SAR document set, course files, CO-PO attainment calculations, and faculty credentials for the AI & ML Department.
+                  <br><br>
+                  How can I assist your accreditation preparation today?
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Suggestions inside chat -->
+            <div class="ai-chips-list" style="margin: 8px 0;">
+              <button class="ai-chip-btn" data-query="Explain the gap in PO3 and recommend corrective action.">Analyze PO3 Gap</button>
+              <button class="ai-chip-btn" data-query="Which faculty members need FDP certificates uploaded?">Check Missing FDPs</button>
+              <button class="ai-chip-btn" data-query="What is our Cadre ratio and SFR compliance status?">SFR Compliance</button>
+            </div>
+
+            <!-- Input Box -->
+            <div class="ai-input-wrap" style="min-width: 100%; width: 100%;">
+              <input type="text" class="ai-input-field" id="fullChatInput" placeholder="Ask about criteria, attainment formulas, SAR requirements..." onkeypress="handleFullChatKeypress(event)" />
+              <button class="ai-send-btn" id="fullChatSendBtn" onclick="sendFullChatMessage()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        © 2025 AI & ML Department | NBA Digital Twin | All Rights Reserved
+      </footer>
+    </main>
   </div>
 
-  <!-- Main ES6 JavaScript Entry -->
-  <script type="module" src="./src/app.js"></script>
+  <!-- ======================================================================
+       MODAL 1: VIRTUAL NBA INSPECTION
+       ====================================================================== -->
+  <div class="modal-overlay" id="inspectionModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2563eb" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Virtual NBA Inspection Simulation</span>
+        </h3>
+        <button class="modal-close-btn" onclick="closeModal('inspectionModal')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="inspection-progress-box">
+          <div class="inspection-live-text">
+            <span id="inspectStageText">Ready to run inspection...</span>
+            <span id="inspectPercentText" style="color: var(--primary-blue);">0%</span>
+          </div>
+          <div class="inspection-progress-bar">
+            <div class="inspection-bar-fill" id="inspectProgressBar"></div>
+          </div>
+        </div>
+
+        <div class="inspection-results-summary" id="inspectSummaryBox" style="display: none;">
+          <div class="inspect-stat-card pass">
+            <div class="val">82</div>
+            <div class="lbl">PASS</div>
+          </div>
+          <div class="inspect-stat-card warning">
+            <div class="val">14</div>
+            <div class="lbl">WARNING</div>
+          </div>
+          <div class="inspect-stat-card fail">
+            <div class="val">7</div>
+            <div class="lbl">FAIL</div>
+          </div>
+        </div>
+
+        <div id="inspectFindingsBox" style="display: none;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 10px; color: var(--text-secondary); background: #f8fafc; padding: 8px 12px; border-radius: 6px;">
+            <span>Missing Evidence: <strong>23</strong></span>
+            <span>Pending Actions: <strong>15</strong></span>
+            <span>Expired Evidence: <strong>5</strong></span>
+            <span>Overall Readiness: <strong style="color: #16a34a;" id="inspectReadinessScore">87%</strong></span>
+          </div>
+
+          <!-- Finding Card -->
+          <div class="gap-finding-card">
+            <div class="gap-finding-header">
+              <span class="gap-badge">🔴 CRITICAL GAP</span>
+              <span style="font-size: 10px; color: var(--text-muted);">Inspection Finding #1</span>
+            </div>
+            <div class="gap-finding-details">
+              <div><strong>Course:</strong> Machine Learning (22AI61)</div>
+              <div><strong>Issue:</strong> Course file incomplete. Missing:</div>
+              <ul style="padding-left: 18px; margin: 3px 0; color: #dc2626;">
+                <li>❌ Feedback analysis</li>
+                <li>❌ Remedial class evidence</li>
+              </ul>
+              <div><strong>Responsible:</strong> Dr. Anand Rao</div>
+              <div><strong>Recommended Action:</strong> Upload feedback analysis and remedial-class evidence.</div>
+              <div><strong>Deadline:</strong> 5 days</div>
+            </div>
+            <div class="gap-action-box">
+              <span style="font-size: 10.5px; color: var(--text-secondary);">Course File: <strong id="modalCourseFileState" style="color: #dc2626;">70% Complete 🔴</strong></span>
+              <button class="btn-resolve-gap" onclick="triggerMachineLearningFix()">Upload Evidence & Update Twin</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('inspectionModal')">Close</button>
+        <button class="btn-primary" id="btnStartInspectionSimulation" onclick="runInspectionSimulation()">Start Virtual Inspection</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 2: DOCUMENT UPLOAD & DOCUMENT AI
+       ====================================================================== -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3>Upload Evidence Document</h3>
+        <button class="modal-close-btn" onclick="closeModal('uploadModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="border: 2px dashed #cbd5e1; border-radius: 10px; padding: 26px 16px; text-align: center; cursor: pointer; background-color: #f8fafc;" onclick="simulateFilePick()">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#64748b" stroke-width="1.5" style="margin-bottom: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Click or drag file to upload</div>
+          <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 3px;">PDF, DOCX, XLSX, Images (Max 25MB)</div>
+        </div>
+
+        <div style="margin-top: 14px;">
+          <label style="font-size: 11px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 4px;">Select Criterion Context</label>
+          <select class="custom-select" style="width: 100%;" id="uploadCriterionSelect">
+            <option value="C1">Criterion 1: Curriculum & Syllabus</option>
+            <option value="C2">Criterion 2: Teaching & Learning</option>
+            <option value="C3">Criterion 3: Assessment & Attainment</option>
+            <option value="C4">Criterion 4: Students' Performance</option>
+            <option value="C5">Criterion 5: Faculty Qualification</option>
+            <option value="C6">Criterion 6: Faculty Contributions / FDP</option>
+            <option value="C7">Criterion 7: Facilities & Labs</option>
+            <option value="C8">Criterion 8: Continuous Improvement</option>
+          </select>
+        </div>
+
+        <!-- Document AI Live Preview Box -->
+        <div id="documentAiExtractBox" style="display: none; margin-top: 14px; background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 12px;">
+          <div style="font-size: 11.5px; font-weight: 700; color: #1e40af; margin-bottom: 4px;">
+            🤖 Document AI Extracted Metadata:
+          </div>
+          <div style="font-size: 11px; color: #1e3a8a; line-height: 1.5;" id="documentAiDetails">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('uploadModal')">Cancel</button>
+        <button class="btn-primary" id="btnConfirmUpload" onclick="processDocumentUpload()">Save to Digital Twin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 3: DOWNLOAD REPORTS MODAL
+       ====================================================================== -->
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3>Export NBA Accreditation Reports</h3>
+        <button class="modal-close-btn" onclick="closeModal('reportModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 11.5px; color: var(--text-secondary); margin-bottom: 12px;">
+          Select report format and scope for the <strong>AI & ML Department</strong>:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <label style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border-light); border-radius: 6px; cursor: pointer;">
+            <input type="radio" name="reportType" value="sar" checked>
+            <div>
+              <div style="font-size: 12px; font-weight: 600;">Complete SAR Tier-I Dossier</div>
+              <div style="font-size: 10.5px; color: var(--text-muted);">All 9 Criteria with evidence tables and calculations</div>
+            </div>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border-light); border-radius: 6px; cursor: pointer;">
+            <input type="radio" name="reportType" value="attainment">
+            <div>
+              <div style="font-size: 12px; font-weight: 600;">CO-PO-PSO Attainment Summary</div>
+              <div style="font-size: 10.5px; color: var(--text-muted);">Direct and indirect attainment matrices per course</div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('reportModal')">Cancel</button>
+        <button class="btn-primary" onclick="generateSelectedReport()">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Download Dossier</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Dropdown / Drawer -->
+  <div class="modal-overlay" id="notificationsModal">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>Department Notifications (5 Active)</h3>
+        <button class="modal-close-btn" onclick="closeModal('notificationsModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 10px 16px;">
+        <div class="alerts-list">
+          <div class="alert-item" style="border-bottom: 1px solid #f1f5f9; padding: 8px 0;">
+            <div class="alert-icon-circle danger">!</div>
+            <div class="alert-content-wrap">
+              <div class="alert-message"><strong>PO3 Attainment Below Threshold:</strong> Attainment is 58% vs target 80% in AI & ML.</div>
+              <div class="alert-timestamp">2 hours ago • Criterion 3</div>
+            </div>
+          </div>
+          <div class="alert-item" style="border-bottom: 1px solid #f1f5f9; padding: 8px 0;">
+            <div class="alert-icon-circle warning">!</div>
+            <div class="alert-content-wrap">
+              <div class="alert-message"><strong>Course File Incomplete:</strong> Machine Learning (22AI61) missing remedial class evidence.</div>
+              <div class="alert-timestamp">6 hours ago • Criterion 2 & 8</div>
+            </div>
+          </div>
+          <div class="alert-item" style="border-bottom: 1px solid #f1f5f9; padding: 8px 0;">
+            <div class="alert-icon-circle info">i</div>
+            <div class="alert-content-wrap">
+              <div class="alert-message"><strong>Pending FDP Certificates:</strong> 3 faculty members have not uploaded certificates for winter FDP.</div>
+              <div class="alert-timestamp">1 day ago • Criterion 5</div>
+            </div>
+          </div>
+          <div class="alert-item" style="border-bottom: 1px solid #f1f5f9; padding: 8px 0;">
+            <div class="alert-icon-circle success">✓</div>
+            <div class="alert-content-wrap">
+              <div class="alert-message"><strong>Semester 4 Attainment Updated:</strong> All course files verified.</div>
+              <div class="alert-timestamp">2 days ago • Criterion 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('notificationsModal')">Mark All as Read</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Floating Tooltip for Charts -->
+  <div class="chart-tooltip" id="chartTooltip"></div>
+
+  <!-- Javascript File -->
+  <script src="app.js"></script>
 </body>
 </html>
