@@ -1,0 +1,17 @@
+DEPARTMENT OF SCIENCE & TECHNOLOGY (DST)
+GOVERNMENT OF INDIA, TECHNOLOGY BHAVAN, NEW DELHI
+RESEARCH & DEVELOPMENT SANCTION ORDER
+
+Sanction Order No: DST/R&D/AIML/2023/482
+Date: 10-October-2023
+
+Project Title: Edge AI Inference Acceleration for Multimodal Healthcare Tele-Diagnostics
+Principal Investigator: Dr. A. Sharma, Professor, Dept. of AIML, Apex Institute of Engineering & Technology
+Co-Principal Investigator: Dr. C. Rao, Associate Professor, Dept. of AIML
+
+Sanction Details:
+1. Total Sanctioned Funding: INR 18.50 Lakhs (Rupees Eighteen Lakhs and Fifty Thousand Only)
+2. Duration of Project: 3 Academic Years (2023-2026)
+3. Funding Agency: Department of Science and Technology (DST) - Cognitive Computing Division
+4. Deliverables: 2 SCI/Scopus Reprints, 1 Indian Patent Filing, and Open Source Software Kit
+5. Fund Disbursement: First installment of INR 8.00 Lakhs released vide RTGS Ref # SBIN4829105.

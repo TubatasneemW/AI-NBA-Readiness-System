@@ -1,0 +1,24 @@
+COURSE SYLLABUS: MACHINE LEARNING ALGORITHMS
+Course Code: 22UAI608C | Semester: VI | Academic Year: 2025-26
+Department of Artificial Intelligence & Machine Learning
+
+1. COURSE DESCRIPTION:
+This course provides theoretical foundations and practical implementations of supervised, unsupervised,
+and reinforcement learning algorithms. Students develop analytical capabilities for building predictive models.
+
+2. COURSE OUTCOMES (COs):
+- CO1: Understand mathematical foundations of linear regression, logistic classification, and decision trees (Bloom's Level: L2 - Understand).
+- CO2: Apply regularization techniques (Lasso, Ridge) and feature selection methods on complex datasets (Bloom's Level: L3 - Apply).
+- CO3: Analyze ensemble methods including Random Forests, XGBoost, and Support Vector Machines for high-dimensional data (Bloom's Level: L4 - Analyze).
+- CO4: Design and evaluate deep neural networks and clustering algorithms using cross-validation and standard evaluation metrics (Bloom's Level: L5 - Evaluate).
+
+3. ASSESSMENT SCHEME:
+- Continuous Internal Evaluation (CIE): 50 Marks (CIE-I: 20 Marks, CIE-II: 20 Marks, Micro Project: 10 Marks)
+- Semester End Examination (SEE): 50 Marks
+- Total Marks: 100 Marks (Passing threshold: 40%)
+
+4. ASSESSMENT-TO-CO MAPPING:
+- CIE-I assesses CO1 and CO2
+- CIE-II assesses CO3 and CO4
+- Micro Project assesses CO1, CO2, CO3, and CO4
+- SEE assesses all outcomes CO1, CO2, CO3, and CO4
