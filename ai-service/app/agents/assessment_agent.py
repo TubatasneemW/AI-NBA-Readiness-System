@@ -1,28 +1,5 @@
-# assessment_agent.py
-
-import os
-
-from dotenv import load_dotenv
-from openai import OpenAI
-
 from data.criterion3_data import criterion3_data
-
-
-# ============================================================
-# 1. LOAD ENVIRONMENT VARIABLES
-# ============================================================
-
-load_dotenv()
-
-
-# ============================================================
-# 2. CREATE GROQ CLIENT
-# ============================================================
-
-client = OpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
-    base_url="https://api.groq.com/openai/v1"
-)
+from app.services.model_client import call_model
 
 
 # ============================================================
@@ -69,7 +46,7 @@ def get_assessment_data():
 # 4. ASSESSMENT ANALYSIS FUNCTION
 # ============================================================
 
-def analyze_assessment(data=None):
+def analyze_assessment(data=None, mock_response=None):
     """
     Analyze Criterion 3 assessment information.
 
@@ -324,21 +301,13 @@ Do not claim compliance or non-compliance.
 
 
     # ========================================================
-    # 6. CALL GROQ
+    # 6. CALL MODEL CLIENT
     # ========================================================
 
-    response = client.responses.create(
-        model="openai/gpt-oss-20b",
-        input=prompt,
+    return call_model(
+        prompt=prompt,
         max_output_tokens=2500,
-        reasoning={
-            "effort": "low"
-        }
+        model="openai/gpt-oss-20b",
+        reasoning_effort="low",
+        mock_response=mock_response
     )
-
-
-    # ========================================================
-    # 7. RETURN RESULT
-    # ========================================================
-
-    return response.output_text

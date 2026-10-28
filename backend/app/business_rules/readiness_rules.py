@@ -32,6 +32,7 @@ class RequirementStatus(str, enum.Enum):
     WARNING = "WARNING"
     FAIL = "FAIL"
     NOT_APPLICABLE = "NOT_APPLICABLE"
+    NEEDS_RULE_CLARIFICATION = "NEEDS_RULE_CLARIFICATION"
 
 
 # ---------------------------------------------------------------------------
@@ -76,6 +77,24 @@ def _missing_data_warning(
         limitations=[
             f"Rule '{rule}' could not evaluate: missing context keys: {missing}. "
             "Supply the required data or mark the requirement as NOT_APPLICABLE."
+        ],
+    )
+
+
+def _needs_clarification(
+    rule: str,
+    reason: str,
+    max_score: float = 0.0,
+    metrics: dict = None,
+) -> EvaluationResult:
+    """Return NEEDS_RULE_CLARIFICATION when boundary/policy is ambiguous."""
+    return EvaluationResult(
+        status=RequirementStatus.NEEDS_RULE_CLARIFICATION,
+        score_attained=0.0,
+        max_score=max_score,
+        deterministic_metrics=metrics or {},
+        limitations=[
+            f"Rule '{rule}' requires institutional clarification: {reason}"
         ],
     )
 

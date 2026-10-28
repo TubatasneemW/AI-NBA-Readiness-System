@@ -1,135 +1,21 @@
-# student_agent.py
-
-import os
-from collections import Counter
-from statistics import mean
-
-from dotenv import load_dotenv
-from openai import OpenAI
-
 from data.criterion3_data import criterion3_data
-
-
-# ============================================================
-# 1. LOAD ENVIRONMENT VARIABLES
-# ============================================================
-
-load_dotenv()
-
-
-# ============================================================
-# 2. CREATE GROQ CLIENT
-# ============================================================
-
-client = OpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
-    base_url="https://api.groq.com/openai/v1"
+from app.services.model_client import call_model
+from app.services.metrics_service import (
+    calculate_student_statistics,
+    calculate_criterion4_progression_metrics,
+    calculate_criterion4_placement_metrics,
+    summarize_student_achievements
 )
 
 
-# ============================================================
-# 3. CALCULATE VERIFIED STUDENT STATISTICS
-# ============================================================
 
-def calculate_student_statistics(student_records):
-    """
-    Calculate exact numerical statistics from the verified
-    student records.
-
-    Python performs the calculations.
-    The LLM does not calculate these values.
-    """
-
-    cie1_values = [
-        student["CIE-I"]
-        for student in student_records
-    ]
-
-    cie2_values = [
-        student["CIE-II"]
-        for student in student_records
-    ]
-
-    micro_project_values = [
-        student["Micro Project"]
-        for student in student_records
-    ]
-
-    internal_total_values = [
-        student["Internal Total"]
-        for student in student_records
-    ]
-
-    attendance_values = [
-        student["Attendance"]
-        for student in student_records
-    ]
-
-    statistics = {
-        "record_count": len(student_records),
-
-        "CIE-I": {
-            "average": round(mean(cie1_values), 2),
-            "minimum": min(cie1_values),
-            "maximum": max(cie1_values),
-            "range": round(
-                max(cie1_values) - min(cie1_values),
-                2
-            )
-        },
-
-        "CIE-II": {
-            "average": round(mean(cie2_values), 2),
-            "minimum": min(cie2_values),
-            "maximum": max(cie2_values),
-            "range": round(
-                max(cie2_values) - min(cie2_values),
-                2
-            )
-        },
-
-        "Micro Project": {
-            "average": round(mean(micro_project_values), 2),
-            "minimum": min(micro_project_values),
-            "maximum": max(micro_project_values),
-            "range": round(
-                max(micro_project_values) - min(micro_project_values),
-                2
-            )
-        },
-
-        "Internal Total": {
-            "average": round(mean(internal_total_values), 2),
-            "minimum": min(internal_total_values),
-            "maximum": max(internal_total_values),
-            "range": round(
-                max(internal_total_values) - min(internal_total_values),
-                2
-            )
-        },
-
-        "Attendance": {
-            "average": round(mean(attendance_values), 2),
-            "minimum": min(attendance_values),
-            "maximum": max(attendance_values),
-            "range": round(
-                max(attendance_values) - min(attendance_values),
-                2
-            ),
-            "distribution": dict(
-                sorted(Counter(attendance_values).items())
-            )
-        }
-    }
-
-    return statistics
 
 
 # ============================================================
 # 4. STUDENT PERFORMANCE ANALYSIS
 # ============================================================
 
-def analyze_student_performance(data=None):
+def analyze_student_performance(data=None, mock_response=None):
     """
     Analyze verified student performance data for NBA
     Criterion 3.
@@ -157,7 +43,27 @@ def analyze_student_performance(data=None):
 
     else:
 
-        student_records = data["student_records"]
+        # Handle both "student_records" and "students" keys flexibly
+        student_records = (
+            data.get("student_records")
+            or data.get("students")
+            or []
+        )
+
+        course_student_count = data.get(
+            "course_student_count",
+            len(student_records)
+        )
+        available_student_records = data.get(
+            "available_student_records",
+            len(student_records)
+        )
+
+        data = {
+            "student_records": student_records,
+            "course_student_count": course_student_count,
+            "available_student_records": available_student_records
+        }
 
     # --------------------------------------------------------
     # Calculate statistics using Python
@@ -171,6 +77,11 @@ def analyze_student_performance(data=None):
     # Prepare verified summary for the AI
     # --------------------------------------------------------
 
+    missing_count = max(
+        0,
+        data["course_student_count"] - data["available_student_records"]
+    )
+
     verified_summary = {
         "course_registered_students": data[
             "course_student_count"
@@ -180,10 +91,7 @@ def analyze_student_performance(data=None):
             "available_student_records"
         ],
 
-        "missing_student_records": (
-            data["course_student_count"]
-            - data["available_student_records"]
-        ),
+        "missing_student_records": missing_count,
 
         "statistics": statistics,
 
@@ -424,20 +332,134 @@ not to perform arithmetic or create accreditation evidence.
 
 
     # --------------------------------------------------------
-    # Call Groq
+    # Call Model Client
     # --------------------------------------------------------
 
-    response = client.responses.create(
-        model="openai/gpt-oss-20b",
-        input=prompt,
+    return call_model(
+        prompt=prompt,
         max_output_tokens=3000,
-        reasoning={
-            "effort": "low"
-        }
+        model="openai/gpt-oss-20b",
+        reasoning_effort="low",
+        mock_response=mock_response
     )
 
-    # --------------------------------------------------------
-    # Return final AI analysis
-    # --------------------------------------------------------
 
-    return response.output_text
+# ============================================================
+# 5. CRITERION 4 STUDENT PERFORMANCE & PROGRESSION ANALYSIS
+# ============================================================
+
+def analyze_criterion4_student_performance(
+    data: dict,
+    mock_response: str = None
+) -> str:
+    """
+    Analyze verified student performance, academic progression,
+    and placement/achievement information for NBA Criterion 4.
+
+    Python calculates exact progression rates, placement percentages,
+    and achievement categories deterministically.
+    The LLM organizes and explains the verified findings.
+    """
+    if not data:
+        data = {}
+
+    cohort_records = data.get("cohorts", [])
+    placement_records = data.get("placements", [])
+    achievement_records = data.get("achievements", [])
+
+    # 1. Deterministic Python Calculations
+    progression_stats = calculate_criterion4_progression_metrics(cohort_records)
+    placement_stats = calculate_criterion4_placement_metrics(placement_records)
+    achievement_stats = summarize_student_achievements(achievement_records)
+
+    # 2. Identify missing fields
+    missing_indicators = []
+    if not cohort_records:
+        missing_indicators.append("Cohort progression records not provided")
+    if not placement_records:
+        missing_indicators.append("Placement/higher studies records not provided")
+    if not achievement_records:
+        missing_indicators.append("Student achievements/activities not provided")
+    if data.get("competitive_exams") is None:
+        missing_indicators.append("Competitive exams (GATE/CAT/GRE) data not provided")
+
+    verified_summary = {
+        "progression_metrics": progression_stats,
+        "placement_metrics": placement_stats,
+        "achievement_metrics": achievement_stats,
+        "missing_indicators": missing_indicators,
+        "institution_program": data.get("program", "Not specified"),
+        "academic_years_covered": data.get("academic_years_covered", [])
+    }
+
+    prompt = f"""
+You are the Student Performance Analysis Agent in an
+AI-Driven NBA Accreditation Readiness System.
+
+Your responsibility is to analyze VERIFIED student performance,
+progression, placement, and achievement information for NBA Criterion 4.
+
+The information below has already been calculated deterministically by Python.
+Python is the sole source of truth for all numbers.
+
+==================================================
+STRICT DATA INTEGRITY RULES
+==================================================
+
+1. Use ONLY the verified metrics and information supplied below.
+2. DO NOT recalculate any statistics.
+3. DO NOT change any numerical value.
+4. DO NOT invent:
+   - student names, USNs, or registration IDs
+   - completion counts or graduation rates
+   - placement numbers, company names, or salary figures
+   - student awards or achievements
+   - NBA marks, benchmarks, or compliance judgments
+5. Clearly distinguish verified records from pending/unverified records.
+6. Do not describe results as 'good', 'poor', 'impressive', or 'satisfactory'
+   unless explicitly evaluated against official institutional thresholds.
+7. If data for a category is missing, explicitly list it as missing.
+
+==================================================
+VERIFIED CRITERION 4 INFORMATION
+==================================================
+
+{verified_summary}
+
+==================================================
+OUTPUT FORMAT
+==================================================
+
+Return EXACTLY these five sections:
+
+SECTION 1
+Academic Progression and Completion
+Report cohort-wise and aggregate completion rates (with and without backlogs).
+Preserve numerical percentages exactly.
+
+SECTION 2
+Placements, Higher Studies, and Entrepreneurship
+Report year-wise and aggregate placement, higher education, and entrepreneurship counts and percentages.
+Report median salary if supplied, or state it as not supplied.
+
+SECTION 3
+Student Achievements and Professional Activities
+Report total achievements, breakdown by category, and verification status.
+
+SECTION 4
+Data Quality and Evidence Limitations
+List missing indicators, unverified entries, and data gaps.
+
+SECTION 5
+Recommendations for Accreditation Evidence
+Provide factual, actionable recommendations for collecting and verifying required evidence documents.
+Do not claim compliance or non-compliance.
+"""
+
+    return call_model(
+        prompt=prompt,
+        max_output_tokens=3000,
+        model="openai/gpt-oss-20b",
+        reasoning_effort="low",
+        mock_response=mock_response
+    )

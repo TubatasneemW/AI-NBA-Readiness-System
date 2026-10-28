@@ -106,12 +106,40 @@ class AgentAnalysisResponse(BaseModel):
 # Known criterion-to-endpoint mapping
 # ---------------------------------------------------------------------------
 
+AVAILABLE_AI_ENDPOINTS: dict[str, str] = {
+    "CRITERION_3": "/criterion3/analyze",
+    "CRITERION_4": "/criterion4/analyze",
+    "CRITERION_5": "/criterion5/analyze",
+    "CRITERION_6": "/criterion6/analyze",
+    "INSPECTION": "/inspection/analyze",
+    "REPORT": "/report/generate",
+    "COMPLIANCE": "/compliance/analyze",
+    "DOCUMENT_QUERY": "/document/query",
+}
+
 _CRITERION_ENDPOINTS: dict[str, Optional[str]] = {
     "CRITERION_3": "/criterion3/analyze",
-    "CRITERION_4": None,   # Not yet implemented in ai-service
+    "CRITERION_4": None,   # Enabled dynamically or via register_criterion_endpoint
     "CRITERION_5": None,
     "CRITERION_6": None,
 }
+
+
+def register_criterion_endpoint(criterion: str, endpoint: str) -> None:
+    """Register or enable an AI service endpoint for a criterion or service."""
+    _CRITERION_ENDPOINTS[criterion] = endpoint
+
+
+def enable_all_criteria_endpoints() -> None:
+    """Enable all implemented AI service endpoints (C3-C6, inspection, report, compliance, document)."""
+    _CRITERION_ENDPOINTS.update(AVAILABLE_AI_ENDPOINTS)
+
+
+def disable_criteria_endpoints(*criteria: str) -> None:
+    """Reset specified criteria back to None (offline / safe mode)."""
+    for c in criteria:
+        if c in _CRITERION_ENDPOINTS:
+            _CRITERION_ENDPOINTS[c] = None
 
 
 def _unavailable_response(

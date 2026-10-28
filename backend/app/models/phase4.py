@@ -59,6 +59,7 @@ class RequirementStatus(str, enum.Enum):
     WARNING = "WARNING"
     FAIL = "FAIL"
     NOT_APPLICABLE = "NOT_APPLICABLE"
+    NEEDS_RULE_CLARIFICATION = "NEEDS_RULE_CLARIFICATION"
 
 
 class EvaluationMode(str, enum.Enum):

@@ -1,29 +1,9 @@
-# coordinator_agent.py
-
-import os
 import json
-
-from dotenv import load_dotenv
-from openai import OpenAI
+from typing import Any, Dict, Optional
 
 from data.criterion3_data import criterion3_data
-
-
-# ============================================================
-# 1. LOAD ENVIRONMENT VARIABLES
-# ============================================================
-
-load_dotenv()
-
-
-# ============================================================
-# 2. CREATE GROQ CLIENT
-# ============================================================
-
-client = OpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
-    base_url="https://api.groq.com/openai/v1"
-)
+from app.services.model_client import call_model
+from app.services.metrics_service import evaluate_department_readiness
 
 
 # ============================================================
@@ -123,7 +103,8 @@ def compact_agent_output(text, max_chars=1800):
 def coordinate_criterion3(
     assessment_analysis,
     student_analysis,
-    data=None
+    data=None,
+    mock_response=None
 ):
     """
     Combine the Assessment Agent and Student Agent outputs.
@@ -241,44 +222,28 @@ supporting summaries only.
 
 16. Do not say that CO-PO-PSO mapping is missing.
 
-17. The verified assessment-to-CO mapping is:
+17. Use ONLY the verified facts provided in the assessment and student analysis sections below.
+    Do not invent assessment-to-CO mappings, student counts, or data availability claims.
 
-    CIE-I -> CO1, CO2
-    CIE-II -> CO3, CO4
-    Micro Project -> CO1, CO2, CO3, CO4
-    SEE -> CO1, CO2, CO3, CO4
+18. If an assessment-to-CO mapping is not mentioned in the analysis, do not state it.
 
-18. Do not say that every assessment component covers
-    every CO.
+19. Report student record counts and data limitations exactly as stated in the analysis.
 
-19. The verified student-performance record count is 56.
+20. If CO attainment or PO attainment formula information is not present in the analysis, state that it is unavailable.
 
-20. The course-level registered student count is 60.
+21. A data limitation is not automatically a recommendation.
 
-21. Do not infer the identities of the 4 records that are
-    not present.
+22. Do not invent recommendations.
 
-22. Student-level SEE marks are unavailable.
+23. Do not invent additional analysis.
 
-23. Question-level student marks are unavailable.
-
-24. Official CO attainment formula is unavailable.
-
-25. Official PO attainment formula is unavailable.
-
-26. A data limitation is not automatically a recommendation.
-
-27. Do not invent recommendations.
-
-28. Do not invent additional analysis.
-
-29. If no explicit further analysis is supported, write:
-
+24. If no explicit further analysis is supported, write:
     No additional analysis was explicitly identified.
 
-30. If no explicit next step is supported, write:
-
+25. If no explicit next step is supported, write:
     No additional next steps were explicitly identified.
+
+
 
 
 ================ OUTPUT ================
@@ -360,21 +325,159 @@ No additional next steps were explicitly identified.
 
 
     # ========================================================
-    # 7. CALL GROQ
+    # 7. CALL MODEL CLIENT
     # ========================================================
 
-    response = client.responses.create(
-        model="openai/gpt-oss-20b",
-        input=prompt,
+    return call_model(
+        prompt=prompt,
         max_output_tokens=1400,
-        reasoning={
-            "effort": "low"
-        }
+        model="openai/gpt-oss-20b",
+        reasoning_effort="low",
+        mock_response=mock_response
     )
 
 
-    # ========================================================
-    # 8. RETURN FINAL RESULT
-    # ========================================================
+# ============================================================
+# 8. MULTI-CRITERIA DEPARTMENT COORDINATOR
+# ============================================================
 
-    return response.output_text
+def coordinate_department_readiness(
+    department_data: Optional[Dict[str, Any]] = None,
+    criterion3_summary: Optional[str] = None,
+    criterion4_summary: Optional[str] = None,
+    criterion5_summary: Optional[str] = None,
+    criterion6_summary: Optional[str] = None,
+    mock_response: Optional[str] = None
+) -> str:
+    """
+    Coordinate and synthesize findings across NBA Criteria 3, 4, 5, and 6.
+
+    Responsibilities:
+    1. Resolve potential inconsistencies or duplicate claims across criteria.
+    2. Enforce verified Python ground truth for all metrics.
+    3. Ensure no agent outputs hallucinate or contradict official datasets.
+    4. Produce a coherent, unified departmental assessment synthesis.
+    """
+    if department_data is None:
+        department_data = {}
+
+    # Deterministic ground truth evaluation
+    readiness_eval = evaluate_department_readiness(department_data)
+
+    verified_summary = {
+        "department": readiness_eval.get("department", "Department Not Specified"),
+        "composite_readiness_score": readiness_eval.get("composite_readiness_score", 0.0),
+        "overall_status": readiness_eval.get("overall_status", "Non-Compliant"),
+        "readiness_verdict": readiness_eval.get("readiness_verdict", "Unknown"),
+        "gap_statistics": {
+            "total_gaps": readiness_eval.get("gap_summary", {}).get("total_gaps", 0),
+            "critical_count": readiness_eval.get("gap_summary", {}).get("critical_count", 0),
+            "major_count": readiness_eval.get("gap_summary", {}).get("major_count", 0),
+            "minor_count": readiness_eval.get("gap_summary", {}).get("minor_count", 0)
+        },
+        "criterion_breakdown": {
+            "criterion3_completeness_pct": (
+                readiness_eval.get("criterion_breakdown", {})
+                .get("criterion3", {})
+                .get("completeness_percentage", 0.0)
+            ),
+            "criterion4_completeness_pct": (
+                readiness_eval.get("criterion_breakdown", {})
+                .get("criterion4", {})
+                .get("completeness_percentage", 0.0)
+            ),
+            "criterion5_completeness_pct": (
+                readiness_eval.get("criterion_breakdown", {})
+                .get("criterion5", {})
+                .get("completeness_percentage", 0.0)
+            ),
+            "criterion6_completeness_pct": (
+                readiness_eval.get("criterion_breakdown", {})
+                .get("criterion6", {})
+                .get("completeness_percentage", 0.0)
+            )
+        }
+    }
+
+    verified_json = json.dumps(verified_summary, indent=2, default=str)
+
+    c3_text = compact_agent_output(criterion3_summary, max_chars=1200)
+    c4_text = compact_agent_output(criterion4_summary, max_chars=1200)
+    c5_text = compact_agent_output(criterion5_summary, max_chars=1200)
+    c6_text = compact_agent_output(criterion6_summary, max_chars=1200)
+
+    prompt = f"""
+You are the Central Coordinator Agent for an
+AI-Driven NBA Accreditation Readiness System.
+
+Your responsibility is to synthesize multi-agent findings across
+NBA Criteria 3, 4, 5, and 6 into a unified departmental readiness synthesis.
+
+Python-verified data is the SOURCE OF TRUTH.
+The individual criteria agent summaries are supporting inputs only.
+
+==================================================
+VERIFIED DEPARTMENT FACTS
+==================================================
+
+{verified_json}
+
+==================================================
+CRITERION AGENT SUMMARIES
+==================================================
+
+[Criterion 3: Course & Program Outcomes]
+{c3_text or "No specific agent text provided; use verified facts."}
+
+[Criterion 4: Student Performance & Progression]
+{c4_text or "No specific agent text provided; use verified facts."}
+
+[Criterion 5: Faculty Roster, SFR & Cadre]
+{c5_text or "No specific agent text provided; use verified facts."}
+
+[Criterion 6: Faculty Contributions, R&D & FDPs]
+{c6_text or "No specific agent text provided; use verified facts."}
+
+==================================================
+COORDINATION RULES
+==================================================
+
+1. Use verified Python facts for all numerical figures and scores.
+2. DO NOT change or invent any metrics.
+3. Prevent duplicate claims: ensure items (like faculty achievements or grants) are not double-counted.
+4. Maintain factual consistency across all criteria.
+5. If an agent summary contradicts the verified data, the verified data takes absolute precedence.
+
+==================================================
+OUTPUT FORMAT
+==================================================
+
+Return EXACTLY these five sections:
+
+1. Consolidated Departmental Readiness Overview
+State department, composite score, overall compliance status, and brief synthesis.
+
+2. Criterion-wise Evidence Synthesis
+Briefly summarize verified status across:
+- Criterion 3 (Curriculum and Outcomes)
+- Criterion 4 (Student Success and Placements)
+- Criterion 5 (Faculty Strength and SFR)
+- Criterion 6 (Research, Patents, and Development)
+
+3. Cross-Criteria Consistency and Duplicate Checks
+Confirm that no duplicate achievements or cross-criterion contradictions exist.
+
+4. Consolidated Audit Risks and Missing Evidence
+Summarize the critical documentation deficiencies across all criteria.
+
+5. Unified Action Plan for Accreditation Visit
+List key coordinated steps the department must take prior to evaluator arrival.
+"""
+
+    return call_model(
+        prompt=prompt,
+        max_output_tokens=2800,
+        model="openai/gpt-oss-20b",
+        reasoning_effort="low",
+        mock_response=mock_response
+    )

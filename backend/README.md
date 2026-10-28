@@ -3,7 +3,7 @@
 REST API for the AI-Driven NBA Accreditation Readiness System, built with
 **FastAPI**, **PostgreSQL**, **pgvector**, **SQLAlchemy 2.x**, and **Alembic**.
 
-> **Phase 5 complete.** All 215 tests pass. See the [Phase 5 Final Report](#phase-5-final-report) for the full verification matrix and verdict.
+> **Phase 6 & NBA Tier-I 2026 Rules complete.** All 247 backend tests pass (215 baseline + 32 NBA 2026 deterministic rule and post-audit tests). See the root `README.md` for full architectural documentation.
 
 ---
 
@@ -147,6 +147,7 @@ Alembic manages migrations. The migration chain includes:
 2. `d72af8b7c997` — Phase 3 Faculty achievements, Students, Outcomes, Marks, Attendance
 3. `e3b8a1c9f4d2` — Phase 4 Criteria, Requirements, Evaluations, Documents, Evidence, Chunks (with pgvector)
 4. `f5a1b2c3d4e5` — Phase 5 `nba_gaps`, `nba_corrective_actions`, `notifications`, `system_backup_records`
+5. `a1b2c3d4e5f6` — Phase 6 Align NBA Tier-I 2026 Criteria 3, 4, 5, and 6 weightages and rules
 
 ```bash
 # Run all migrations up to head
@@ -558,7 +559,8 @@ backend/
 │   ├── test_phase5_gaps.py              # 5 tests  (Phase 5 Milestone D)
 │   ├── test_phase5_reports.py           # 7 tests  (Phase 5 Milestone E)
 │   ├── test_phase5_notifications.py     # 5 tests  (Phase 5 Milestone F)
-│   └── test_phase5_backup.py            # 7 tests  (Phase 5 Milestone G)
+│   ├── test_phase5_backup.py            # 7 tests  (Phase 5 Milestone G)
+│   └── test_nba_2026_rules.py           # 32 tests (Phase 6 Deterministic NBA 2026 Rules & Audit Corrections)
 ├── .env.example              # Environment variable template
 ├── alembic.ini               # Alembic configuration
 ├── Dockerfile                # Production container image
