@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPrecisionRackFocus();
   initPrecisionMeter();
   initOscilloscopeWave();
+  initFoldingLimePlate();
 });
 
 // ══════════════════════════════════════════════════════════════
@@ -353,5 +354,32 @@ function initOscilloscopeWave() {
   }
   requestAnimationFrame(render);
 }
+
+// ══════════════════════════════════════════════════════════════
+// 8. EXPANDING & FOLDING LIME PLATE (RELAY SCROLL MECHANISM)
+// ══════════════════════════════════════════════════════════════
+function initFoldingLimePlate() {
+  const plate = document.getElementById('relay-folding-lime-plate');
+  if (!plate) return;
+
+  function onScroll() {
+    const rect = plate.getBoundingClientRect();
+    const windowH = window.innerHeight;
+    
+    // Progress calculation for entry to exit
+    const progress = Math.max(0, Math.min(1, (windowH - rect.top) / (windowH + rect.height)));
+    
+    if (progress > 0.05 && progress < 0.95) {
+      const centerFactor = 1 - Math.abs(progress - 0.5) * 2;
+      const scale = 0.92 + Math.max(0, centerFactor) * 0.08;
+      const translateY = (0.5 - progress) * 24;
+      plate.style.transform = `scale(${scale.toFixed(3)}) translateY(${translateY.toFixed(1)}px)`;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
 
 

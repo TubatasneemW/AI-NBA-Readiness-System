@@ -357,7 +357,11 @@ export function getParam(name) {
 
 /** Navigate with optional delay (for transitions) */
 export function navigate(url, delay = 0) {
-  setTimeout(() => { window.location.href = url; }, delay);
+  let target = url;
+  if (target.startsWith('/') && (window.location.protocol === 'file:' || !window.location.pathname.endsWith('/'))) {
+    target = target.replace(/^\/+/, '');
+  }
+  setTimeout(() => { window.location.href = target; }, delay);
 }
 
 /** Floating label: mark input as has-value for CSS */

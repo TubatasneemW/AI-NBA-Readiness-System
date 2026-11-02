@@ -126,13 +126,13 @@
 
       <!-- Role Selector Tabs -->
       <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--space-2);margin-bottom:var(--space-6);">
-        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="admin@college.edu" data-pw="password123" data-dest="/dashboards/admin.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
+        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="admin@college.edu" data-pw="password123" data-dest="dashboards/admin.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
           👑 <strong>Admin</strong>
         </button>
-        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="hod@college.edu" data-pw="password123" data-dest="/dashboards/reports.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
+        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="hod@college.edu" data-pw="password123" data-dest="dashboards/reports.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
           🎓 <strong>HOD</strong>
         </button>
-        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="faculty@college.edu" data-pw="password123" data-dest="/dashboards/c3.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
+        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="faculty@college.edu" data-pw="password123" data-dest="dashboards/c3.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
           👩‍🏫 <strong>Faculty</strong>
         </button>
       </div>
@@ -395,17 +395,17 @@ document.querySelectorAll('.demo-cred').forEach(btn => {
   btn.addEventListener('mouseenter', () => { btn.style.borderColor = 'rgba(0, 245, 160,0.4)'; btn.style.background = 'var(--surface-200)'; });
   btn.addEventListener('mouseleave', () => { btn.style.borderColor = 'var(--glass-border)'; btn.style.background = 'var(--surface-100)'; });
   btn.addEventListener('click', () => {
-    applyCredentials(btn.dataset.email, btn.dataset.pw, false);
+    applyCredentials(btn.dataset.email, btn.dataset.pw, true);
   });
 });
 
 // Auto-login role if provided in URL (e.g. login.html?role=admin)
 if (roleParam === 'admin') {
-  login('admin@college.edu', 'password123', '/dashboards/admin.html');
+  login('admin@college.edu', 'password123', 'dashboards/admin.html');
 } else if (roleParam === 'hod') {
-  login('hod@college.edu', 'password123', '/dashboards/reports.html');
+  login('hod@college.edu', 'password123', 'dashboards/reports.html');
 } else if (roleParam === 'faculty') {
-  login('faculty@college.edu', 'password123', '/dashboards/c3.html');
+  login('faculty@college.edu', 'password123', 'dashboards/c3.html');
 }
 
 // ── Keyboard shortcut: Enter submits ─────────────────────────

@@ -59,78 +59,81 @@
       p.x *= aspect;
 
       // Base time with organic variation
-      float t = u_time * 0.35;
-      float scrollFactor = u_scroll * 3.14159 * 2.0;
-      float mouseX = (u_mouse.x / u_resolution.x - 0.5) * 0.8;
-      float mouseY = (u_mouse.y / u_resolution.y - 0.5) * 0.8;
+      float t = u_time * 0.32;
+      float scrollFactor = u_scroll * 3.14159 * 1.8;
+      float mouseX = (u_mouse.x / u_resolution.x - 0.5) * 0.6;
 
-      // Pitch black background base
+      // Deep pitch black background
       vec3 finalColor = vec3(0.0, 0.0, 0.0);
 
       // Color Palette: Pure GetLayers Relay Lime & Aurora Glow
-      vec3 coreLime   = vec3(0.85, 1.0, 0.05);   // #CCFF00 Neon Lime core
-      vec3 auroraCyan = vec3(0.0, 0.96, 0.63);   // #00F5A0 Electric Emerald
-      vec3 deepGreen  = vec3(0.04, 0.55, 0.28);  // #059669 Forest Glow
-      vec3 mistColor  = vec3(0.02, 0.22, 0.12);  // #022c22 Ambient atmospheric mist
+      vec3 coreLime       = vec3(0.82, 1.0, 0.02);   // #CCFF00 Neon Lime core
+      vec3 auroraCyan     = vec3(0.0, 0.96, 0.63);   // #00F5A0 Electric Emerald
+      vec3 electricGreen  = vec3(0.14, 0.92, 0.38);  // Vibrant vivid green
+      vec3 deepGreen      = vec3(0.03, 0.48, 0.24);  // #059669 Forest Glow
+      vec3 mistColor      = vec3(0.015, 0.22, 0.11); // Ambient atmospheric mist
 
-      // ── Stream Spine Geometry ─────────────────────────────────
-      // S-curve running diagonally from top-left through center to bottom-right
+      // ── Main Stream Wave Spine ────────────────────────────────
+      // Dynamic S-curve: Starts upper-left (hero card), drifts center, then curves right (Tuesday dashboard)
       float yCoord = st.y;
       
-      // Primary wave spine with harmonic sub-oscillations
-      float spineX = 0.28 + sin(yCoord * 2.4 - t * 0.7 + scrollFactor * 0.8) * 0.22
-                          + cos(yCoord * 4.6 + t * 0.5) * 0.09
-                          + sin(yCoord * 8.2 - t * 1.1) * 0.035
-                          + mouseX * 0.15 * (1.0 - yCoord);
+      // Interpolate wave base X from top-left (0.24) to bottom-right (0.68) with scroll modulation
+      float baseStreamX = mix(0.24, 0.68, pow(1.0 - yCoord, 1.2));
+      baseStreamX += sin(scrollFactor * 0.9) * 0.18;
+
+      float spineX = baseStreamX + sin(yCoord * 2.6 - t * 0.65) * 0.16
+                                 + cos(yCoord * 5.2 + t * 0.45) * 0.08
+                                 + sin(yCoord * 9.4 - t * 1.0) * 0.03
+                                 + mouseX * 0.12 * (1.0 - yCoord);
 
       // Procedural silky fluid undulation
-      float fluid = noise(vec2(yCoord * 3.5 - t * 0.4, t * 0.3)) * 0.07;
+      float fluid = noise(vec2(yCoord * 3.2 - t * 0.35, t * 0.28)) * 0.08;
       spineX += fluid;
 
       // ── Volumetric Atmospheric Glow ───────────────────────────
       float distSpine = abs(st.x - spineX);
-      float broadGlow = exp(-distSpine * 4.2) * 0.45;
-      float wideMist  = exp(-distSpine * 1.8) * 0.25;
+      float broadGlow = exp(-distSpine * 3.8) * 0.55;
+      float wideMist  = exp(-distSpine * 1.6) * 0.32;
 
       finalColor += mistColor * wideMist;
       finalColor += deepGreen * broadGlow;
 
       // ── Multi-Layered Silky Green Ribbons ─────────────────────
-      // Render 6 braided glowing wave strands
-      for (int i = 0; i < 6; i++) {
+      // Render 7 braided glowing wave strands with varied harmonic frequencies
+      for (int i = 0; i < 7; i++) {
         float fi = float(i);
-        float phase = fi * 1.15;
-        float speed = 0.6 + fi * 0.12;
-        float amp = 0.04 + fi * 0.018;
+        float phase = fi * 1.05;
+        float speed = 0.55 + fi * 0.11;
+        float amp = 0.045 + fi * 0.016;
 
         // Individual strand displacement
-        float strandX = spineX + sin(yCoord * (3.8 + fi * 1.4) + t * speed + phase + scrollFactor * 0.5) * amp
-                               + cos(yCoord * (7.2 + fi * 2.0) - t * (speed * 0.7)) * (amp * 0.45);
+        float strandX = spineX + sin(yCoord * (3.6 + fi * 1.3) + t * speed + phase) * amp
+                               + cos(yCoord * (6.8 + fi * 1.8) - t * (speed * 0.65)) * (amp * 0.42);
 
         float d = abs(st.x - strandX);
 
         // Core laser sharpness & soft bloom
-        float core = 0.0016 / (d + 0.0028);
-        float bloom = 0.018 / (d * d * 38.0 + 0.06);
+        float core = 0.0018 / (d + 0.0026);
+        float bloom = 0.024 / (d * d * 32.0 + 0.055);
 
         // Modulate color from lime to cyan across strands
-        vec3 strandColor = mix(coreLime, auroraCyan, sin(fi * 0.8 + yCoord * 3.0 + t) * 0.5 + 0.5);
+        vec3 strandColor = mix(coreLime, auroraCyan, sin(fi * 0.75 + yCoord * 3.2 + t) * 0.5 + 0.5);
+        strandColor = mix(strandColor, electricGreen, cos(fi * 1.2 - t * 0.5) * 0.5 + 0.5);
 
         // Additive lighting accumulation
-        finalColor += strandColor * (core * 0.45 + bloom * 0.35);
+        finalColor += strandColor * (core * 0.48 + bloom * 0.42);
       }
 
       // ── Second Harmonic Wave (Cross-interference ribbon) ──────
-      // A softer secondary stream that weaves gently across the main spine
-      float wave2X = 0.58 + sin(yCoord * 1.8 + t * 0.4 - scrollFactor * 0.6) * 0.28
-                          + cos(yCoord * 3.5 - t * 0.5) * 0.12;
+      // A secondary stream that weaves gently across the main spine
+      float wave2X = spineX + sin(yCoord * 2.2 + t * 0.5) * 0.22 - 0.12;
       float d2 = abs(st.x - wave2X);
-      float glow2 = 0.012 / (d2 * d2 * 25.0 + 0.08);
-      float core2 = 0.0012 / (d2 + 0.004);
-      finalColor += mix(auroraCyan, deepGreen, 0.4) * (core2 * 0.3 + glow2 * 0.25);
+      float glow2 = 0.015 / (d2 * d2 * 28.0 + 0.07);
+      float core2 = 0.0014 / (d2 + 0.0035);
+      finalColor += mix(auroraCyan, deepGreen, 0.45) * (core2 * 0.35 + glow2 * 0.3);
 
-      // Subtle atmospheric vignette at the edges to preserve pitch-black frame
-      float vignette = smoothstep(1.3, 0.2, length(p * vec2(0.8, 1.0)));
+      // Subtle atmospheric vignette at the outer edges
+      float vignette = smoothstep(1.4, 0.3, length(p * vec2(0.75, 1.0)));
       finalColor *= vignette;
 
       // Soft ceiling clamp
@@ -389,3 +392,4 @@
     init();
   }
 })();
+

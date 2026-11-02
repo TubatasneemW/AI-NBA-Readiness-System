@@ -45,9 +45,9 @@ export const CONFIG = {
 
   /** Default redirect after login per role */
   DEFAULT_REDIRECT: {
-    ADMIN:   '/dashboards/admin.html',
-    HOD:     '/dashboards/reports.html',
-    FACULTY: '/dashboards/c3.html',
+    ADMIN:   'dashboards/admin.html',
+    HOD:     'dashboards/reports.html',
+    FACULTY: 'dashboards/c3.html',
   },
 };
 
