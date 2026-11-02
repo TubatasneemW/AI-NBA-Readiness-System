@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLogoPlate();
   initPrecisionRackFocus();
   initPrecisionMeter();
+  initOscilloscopeWave();
 });
 
 // ══════════════════════════════════════════════════════════════
@@ -257,4 +258,100 @@ function initPrecisionMeter() {
   slider.addEventListener('input', updateMeter);
   updateMeter();
 }
+
+// ══════════════════════════════════════════════════════════════
+// 7. INTERSECTING SINE WAVE OSCILLOSCOPE (FAILURES & RECOVERIES)
+// ══════════════════════════════════════════════════════════════
+function initOscilloscopeWave() {
+  const canvas = document.getElementById('relay-oscilloscope-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(10, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(10, Math.floor(rect.height * dpr));
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  let phase = 0;
+  function render() {
+    const w = canvas.width;
+    const h = canvas.height;
+    if (w <= 0 || h <= 0) {
+      requestAnimationFrame(render);
+      return;
+    }
+
+    ctx.clearRect(0, 0, w, h);
+
+    const centerY = h * 0.5;
+    const amp = h * 0.32;
+    const freq = (Math.PI * 3.6) / w;
+
+    // 1. Dark grey wave (failures / unmitigated deviations)
+    ctx.beginPath();
+    ctx.strokeStyle = '#475569';
+    ctx.lineWidth = 2.2;
+    const failPoints = [];
+    for (let x = 0; x <= w; x += 4) {
+      const y = centerY + Math.sin(x * freq + phase + Math.PI) * amp;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+      if (Math.abs(Math.sin(x * freq + phase + Math.PI)) > 0.96) {
+        if (failPoints.length === 0 || x - failPoints[failPoints.length - 1].x > 50) {
+          failPoints.push({ x, y });
+        }
+      }
+    }
+    ctx.stroke();
+
+    for (const pt of failPoints) {
+      ctx.beginPath();
+      ctx.fillStyle = '#0f172a';
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.5;
+      ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // 2. Glowing neon lime wave (recovered / automated fixes)
+    ctx.beginPath();
+    ctx.strokeStyle = '#CCFF00';
+    ctx.lineWidth = 2.8;
+    ctx.shadowColor = 'rgba(204, 255, 0, 0.75)';
+    ctx.shadowBlur = 10;
+    const limePoints = [];
+    for (let x = 0; x <= w; x += 4) {
+      const y = centerY + Math.sin(x * freq + phase) * amp;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+      if (Math.abs(Math.sin(x * freq + phase)) > 0.96) {
+        if (limePoints.length === 0 || x - limePoints[limePoints.length - 1].x > 50) {
+          limePoints.push({ x, y });
+        }
+      }
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    for (const pt of limePoints) {
+      ctx.beginPath();
+      ctx.fillStyle = '#CCFF00';
+      ctx.shadowColor = '#CCFF00';
+      ctx.shadowBlur = 8;
+      ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    phase += 0.024;
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+}
+
 
