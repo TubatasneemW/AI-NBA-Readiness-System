@@ -1,0 +1,7 @@
+AI-NBA-Readiness-System/
+*.db
+*.py[cod]
+__pycache__/
+.env
+*.env
+.venv/
