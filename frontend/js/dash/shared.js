@@ -47,13 +47,134 @@ export async function initDashboardShell(activeCriterionCode = 'C3') {
 /**
  * Render Collapsible Sidebar
  */
+/**
+ * Render Role-Scoped Collapsible Sidebar according to Playbook Section 2.2
+ */
 function _renderSidebar(activeCode, user) {
   const sidebar = document.getElementById('dashboard-sidebar');
   if (!sidebar) return;
 
+  const roles = user?.roles || store.getUser()?.roles || [];
+  const isAdmin = roles.includes('ADMIN');
+  const isHod = roles.includes('HOD') && !isAdmin;
+  const isFacultyOnly = !isAdmin && !isHod;
+
+  let navContent = '';
+
+  if (isAdmin) {
+    // 👑 ADMINISTRATOR NAVIGATION (Institution-level)
+    navContent = `
+      <div class="sidebar-nav-section-title">INSTITUTIONAL ADMINISTRATION</div>
+      <a href="/dashboards/admin.html" class="sidebar-nav-item ${activeCode === 'ADMIN' ? 'active' : ''}">
+        <span>⚙️</span><span>Administrator Console</span>
+      </a>
+      <a href="/dashboards/admin.html#tab-pending-users" class="sidebar-nav-item">
+        <span>⏳</span><span>Pending Approvals</span>
+      </a>
+      <a href="/dashboards/admin.html#tab-all-users" class="sidebar-nav-item">
+        <span>👥</span><span>User Management & Roles</span>
+      </a>
+      <a href="/dashboards/admin.html#tab-backups" class="sidebar-nav-item">
+        <span>💾</span><span>System Backups & Integrity</span>
+      </a>
+
+      <div class="sidebar-nav-section-title">INSTITUTIONAL REPORTS & SAR</div>
+      <a href="/dashboards/reports.html" class="sidebar-nav-item ${activeCode === 'REPORTS' ? 'active' : ''}">
+        <span>📊</span><span>Accreditation Reports & SAR</span>
+      </a>
+      <a href="/dashboards/inspection.html" class="sidebar-nav-item ${activeCode === 'INSPECTION' ? 'active' : ''}">
+        <span>🏆</span><span>Virtual NBA Inspection</span>
+      </a>
+
+      <div class="sidebar-nav-section-title">ALL CRITERIA (MACRO VIEW)</div>
+      <a href="/dashboards/c3.html" class="sidebar-nav-item ${activeCode === 'C3' ? 'active' : ''}">
+        <span>🎯</span><span>Criterion 3 (Assessment)</span>
+      </a>
+      <a href="/dashboards/c4.html" class="sidebar-nav-item ${activeCode === 'C4' ? 'active' : ''}">
+        <span>📈</span><span>Criterion 4 (Students)</span>
+      </a>
+      <a href="/dashboards/c5.html" class="sidebar-nav-item ${activeCode === 'C5' ? 'active' : ''}">
+        <span>👥</span><span>Criterion 5 (Faculty)</span>
+      </a>
+      <a href="/dashboards/c6.html" class="sidebar-nav-item ${activeCode === 'C6' ? 'active' : ''}">
+        <span>💡</span><span>Criterion 6 (R&D)</span>
+      </a>
+    `;
+  } else if (isHod) {
+    // 🎓 HEAD OF DEPARTMENT NAVIGATION (Department-level)
+    navContent = `
+      <div class="sidebar-nav-section-title">DEPARTMENT (CSE)</div>
+      <a href="/dashboards/reports.html" class="sidebar-nav-item ${activeCode === 'REPORTS' ? 'active' : ''}">
+        <span>📊</span><span>Department Overview & SAR</span>
+      </a>
+      <a href="/dashboards/inspection.html" class="sidebar-nav-item ${activeCode === 'INSPECTION' ? 'active' : ''}">
+        <span>🏆</span><span>Virtual NBA Inspection</span>
+      </a>
+      <a href="/dashboards/admin.html" class="sidebar-nav-item ${activeCode === 'ADMIN' ? 'active' : ''}">
+        <span>⏳</span><span>Faculty Approvals</span>
+      </a>
+
+      <div class="sidebar-nav-section-title">DEPARTMENT CRITERIA</div>
+      <a href="/dashboards/c3.html" class="sidebar-nav-item ${activeCode === 'C3' ? 'active' : ''}">
+        <span>🎯</span><span>Criterion 3 (Assessment)</span>
+      </a>
+      <a href="/dashboards/c4.html" class="sidebar-nav-item ${activeCode === 'C4' ? 'active' : ''}">
+        <span>📈</span><span>Criterion 4 (Students)</span>
+      </a>
+      <a href="/dashboards/c5.html" class="sidebar-nav-item ${activeCode === 'C5' ? 'active' : ''}">
+        <span>👥</span><span>Criterion 5 (Faculty)</span>
+      </a>
+      <a href="/dashboards/c6.html" class="sidebar-nav-item ${activeCode === 'C6' ? 'active' : ''}">
+        <span>💡</span><span>Criterion 6 (R&D)</span>
+      </a>
+
+      <div class="sidebar-nav-section-title">PERSONAL WORKSPACE</div>
+      <a href="/dashboards/faculty.html" class="sidebar-nav-item ${activeCode === 'FACULTY' ? 'active' : ''}">
+        <span>👩‍🏫</span><span>My Teaching & Research</span>
+      </a>
+    `;
+  } else {
+    // 👩‍🏫 FACULTY NAVIGATION (Personal Workspace)
+    navContent = `
+      <div class="sidebar-nav-section-title">MY WORKSPACE</div>
+      <a href="/dashboards/faculty.html" class="sidebar-nav-item ${activeCode === 'FACULTY' ? 'active' : ''}">
+        <span>👩‍🏫</span><span>My Dashboard</span>
+      </a>
+      <a href="/dashboards/faculty.html#tab-assigned-courses" class="sidebar-nav-item">
+        <span>📚</span><span>My Assigned Courses (C3)</span>
+      </a>
+      <a href="/dashboards/faculty.html#tab-faculty-c5" class="sidebar-nav-item">
+        <span>👤</span><span>My C5 Profile & FQI</span>
+      </a>
+      <a href="/dashboards/faculty.html#tab-faculty-c6" class="sidebar-nav-item">
+        <span>💡</span><span>My C6 Research & Grants</span>
+      </a>
+      <a href="/dashboards/faculty.html#tab-faculty-uploads" class="sidebar-nav-item">
+        <span>📤</span><span>Evidence Upload & Lifecycle</span>
+      </a>
+      <a href="/dashboards/faculty.html#tab-faculty-revisions" class="sidebar-nav-item">
+        <span>📋</span><span>HOD Feedback & Actions</span>
+      </a>
+
+      <div class="sidebar-nav-section-title">DEPARTMENT CRITERIA (READ-ONLY)</div>
+      <a href="/dashboards/c3.html" class="sidebar-nav-item ${activeCode === 'C3' ? 'active' : ''}">
+        <span>🎯</span><span>Criterion 3 (Assessment)</span>
+      </a>
+      <a href="/dashboards/c4.html" class="sidebar-nav-item ${activeCode === 'C4' ? 'active' : ''}">
+        <span>📈</span><span>Criterion 4 (Students)</span>
+      </a>
+      <a href="/dashboards/c5.html" class="sidebar-nav-item ${activeCode === 'C5' ? 'active' : ''}">
+        <span>👥</span><span>Criterion 5 (Faculty)</span>
+      </a>
+      <a href="/dashboards/c6.html" class="sidebar-nav-item ${activeCode === 'C6' ? 'active' : ''}">
+        <span>💡</span><span>Criterion 6 (R&D)</span>
+      </a>
+    `;
+  }
+
   sidebar.innerHTML = `
     <div class="sidebar-header">
-      <a href="../index.html" class="sidebar-brand">
+      <a href="/index.html" class="sidebar-brand">
         <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
           <defs>
             <linearGradient id="sb-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
@@ -74,50 +195,7 @@ function _renderSidebar(activeCode, user) {
     </div>
 
     <nav class="sidebar-nav">
-      <div class="sidebar-nav-section-title">MY WORKSPACE</div>
-      <a href="faculty.html" class="sidebar-nav-item ${activeCode === 'FACULTY' ? 'active' : ''}">
-        <span>👩‍🏫</span><span>Faculty Home</span>
-      </a>
-
-      <div class="sidebar-nav-section-title">NBA CRITERIA</div>
-      <a href="c3.html" class="sidebar-nav-item ${activeCode === 'C3' ? 'active' : ''}">
-        <span>🎯</span><span>Criterion 3 (Assessment)</span>
-      </a>
-      <a href="c4.html" class="sidebar-nav-item ${activeCode === 'C4' ? 'active' : ''}">
-        <span>📈</span><span>Criterion 4 (Students)</span>
-      </a>
-      <a href="c5.html" class="sidebar-nav-item ${activeCode === 'C5' ? 'active' : ''}">
-        <span>👥</span><span>Criterion 5 (Faculty)</span>
-      </a>
-      <a href="c6.html" class="sidebar-nav-item ${activeCode === 'C6' ? 'active' : ''}">
-        <span>💡</span><span>Criterion 6 (R&D)</span>
-      </a>
-
-      <div class="sidebar-nav-section-title">ACCREDITATION INTELLIGENCE</div>
-      <a href="c3.html" class="sidebar-nav-item" id="nav-gaps">
-        <span>🔍</span><span>Gap Analysis</span>
-      </a>
-      <a href="c3.html" class="sidebar-nav-item" id="nav-evidence">
-        <span>📄</span><span>Evidence Documents</span>
-      </a>
-      <a href="c3.html" class="sidebar-nav-item" id="nav-ai">
-        <span>🤖</span><span>AI RAG Assistant</span>
-      </a>
-
-      <div class="sidebar-nav-section-title">REPORTS & AUDIT</div>
-      <a href="reports.html" class="sidebar-nav-item ${activeCode === 'REPORTS' ? 'active' : ''}">
-        <span>📊</span><span>Accreditation Reports (HOD)</span>
-      </a>
-      <a href="inspection.html" class="sidebar-nav-item ${activeCode === 'INSPECTION' ? 'active' : ''}">
-        <span>🏆</span><span>Virtual NBA Inspection</span>
-      </a>
-
-      ${store.hasRole('ADMIN', 'HOD') ? `
-        <div class="sidebar-nav-section-title">ADMINISTRATION</div>
-        <a href="admin.html" class="sidebar-nav-item ${activeCode === 'ADMIN' ? 'active' : ''}" id="nav-admin">
-          <span>⚙️</span><span>${store.hasRole('ADMIN') ? 'System Administration' : 'Faculty Approvals'}</span>
-        </a>
-      ` : ''}
+      ${navContent}
     </nav>
   `;
 
@@ -158,10 +236,22 @@ function _setupSidebarRouting() {
       tabBtn?.click();
     }
   });
+
+  // Activate tab if URL hash is present (e.g. #tab-all-users, #tab-assigned-courses)
+  function activateHashTab() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const tabBtn = document.querySelector(`.dash-tab-btn[data-tab="${hash}"]`);
+      if (tabBtn) tabBtn.click();
+    }
+  }
+
+  activateHashTab();
+  window.addEventListener('hashchange', activateHashTab);
 }
 
 /**
- * Render Top Bar
+ * Render Top Bar with clear Role-specific Badge and switcher
  */
 function _renderTopbar(activeCode, user) {
   const topbar = document.getElementById('dashboard-topbar');
@@ -169,16 +259,51 @@ function _renderTopbar(activeCode, user) {
 
   const facultyName = user.faculty_profile?.full_name || user.email.split('@')[0];
   const roleName = store.getTopRole();
+  const isAdmin = store.hasRole('ADMIN');
+  const isHod = store.hasRole('HOD') && !isAdmin;
+
+  const roleIcon = isAdmin ? '👑' : isHod ? '🎓' : '👩‍🏫';
+  const roleLabel = isAdmin ? 'ADMINISTRATOR' : isHod ? 'HEAD OF DEPARTMENT' : 'FACULTY';
+  const roleColor = isAdmin ? 'var(--violet, #8B5CF6)' : isHod ? 'var(--cyan, #00F5A0)' : 'var(--aurora, #CCFF00)';
+
+  // Build switcher options tailored to role
+  let switcherOptions = '';
+  if (isAdmin) {
+    switcherOptions = `
+      <option value="admin" ${activeCode === 'ADMIN' ? 'selected' : ''}>⚙️ Admin Console</option>
+      <option value="reports" ${activeCode === 'REPORTS' ? 'selected' : ''}>📊 Institutional SAR</option>
+      <option value="inspection" ${activeCode === 'INSPECTION' ? 'selected' : ''}>🏆 Virtual Inspection</option>
+      <option value="c3" ${activeCode === 'C3' ? 'selected' : ''}>C3: Outcome Assessment</option>
+      <option value="c4" ${activeCode === 'C4' ? 'selected' : ''}>C4: Students' Performance</option>
+      <option value="c5" ${activeCode === 'C5' ? 'selected' : ''}>C5: Faculty Information</option>
+      <option value="c6" ${activeCode === 'C6' ? 'selected' : ''}>C6: Faculty Contributions</option>
+    `;
+  } else if (isHod) {
+    switcherOptions = `
+      <option value="reports" ${activeCode === 'REPORTS' ? 'selected' : ''}>📊 Department Overview</option>
+      <option value="admin" ${activeCode === 'ADMIN' ? 'selected' : ''}>⏳ Faculty Approvals</option>
+      <option value="inspection" ${activeCode === 'INSPECTION' ? 'selected' : ''}>🏆 Virtual Inspection</option>
+      <option value="c3" ${activeCode === 'C3' ? 'selected' : ''}>C3: Outcome Assessment</option>
+      <option value="c4" ${activeCode === 'C4' ? 'selected' : ''}>C4: Students' Performance</option>
+      <option value="c5" ${activeCode === 'C5' ? 'selected' : ''}>C5: Faculty Information</option>
+      <option value="c6" ${activeCode === 'C6' ? 'selected' : ''}>C6: Faculty Contributions</option>
+      <option value="faculty" ${activeCode === 'FACULTY' ? 'selected' : ''}>👩‍🏫 Personal Teaching</option>
+    `;
+  } else {
+    switcherOptions = `
+      <option value="faculty" ${activeCode === 'FACULTY' ? 'selected' : ''}>👩‍🏫 My Workspace</option>
+      <option value="c3" ${activeCode === 'C3' ? 'selected' : ''}>C3: Assigned Courses</option>
+      <option value="c4" ${activeCode === 'C4' ? 'selected' : ''}>C4: Student Performance</option>
+      <option value="c5" ${activeCode === 'C5' ? 'selected' : ''}>C5: My FQI Profile</option>
+      <option value="c6" ${activeCode === 'C6' ? 'selected' : ''}>C6: Research & Grants</option>
+    `;
+  }
 
   topbar.innerHTML = `
     <div class="topbar-left">
-      <!-- Criterion Switcher -->
+      <!-- Role-Scoped Criterion Switcher -->
       <select class="criterion-switcher" id="criterion-switcher-select">
-        <option value="faculty" ${activeCode === 'FACULTY' ? 'selected' : ''}>Faculty Workspace</option>
-        <option value="c3" ${activeCode === 'C3' ? 'selected' : ''}>C3: Outcome Assessment</option>
-        <option value="c4" ${activeCode === 'C4' ? 'selected' : ''}>C4: Students' Performance</option>
-        <option value="c5" ${activeCode === 'C5' ? 'selected' : ''}>C5: Faculty Information</option>
-        <option value="c6" ${activeCode === 'C6' ? 'selected' : ''}>C6: Faculty Contributions</option>
+        ${switcherOptions}
       </select>
 
       <!-- Command Palette Trigger -->
@@ -192,6 +317,11 @@ function _renderTopbar(activeCode, user) {
     </div>
 
     <div class="topbar-right">
+      <!-- Role Badge -->
+      <span class="chip" style="font-size:11px;font-family:var(--font-mono);font-weight:700;padding:4px 8px;border-radius:var(--radius-full);background:rgba(255,255,255,0.06);border:1px solid ${roleColor};color:${roleColor};">
+        ${roleIcon} ${roleLabel}
+      </span>
+
       <!-- Health Pill -->
       <div class="status-pill" id="backend-health-pill" title="Backend service on port 8000">
         <span class="indicator"></span>
@@ -229,7 +359,7 @@ function _renderTopbar(activeCode, user) {
       <div style="display:flex;align-items:center;gap:var(--space-2);padding-left:var(--space-2);border-left:1px solid var(--glass-border);">
         <div style="text-align:right;">
           <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-primary);">${facultyName}</div>
-          <div style="font-size:10px;font-family:var(--font-mono);color:var(--cyan);">${roleName}</div>
+          <div style="font-size:10px;font-family:var(--font-mono);color:var(--text-muted);">${user.email}</div>
         </div>
         <button class="btn btn--ghost btn--sm" id="logout-btn" title="Sign out" style="padding:6px;color:var(--fail);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -243,7 +373,7 @@ function _renderTopbar(activeCode, user) {
   // Criterion Switcher Event
   document.getElementById('criterion-switcher-select')?.addEventListener('change', (e) => {
     const val = e.target.value.toLowerCase();
-    window.location.href = `${val}.html`;
+    window.location.href = `/dashboards/${val}.html`;
   });
 
   // Logout Event

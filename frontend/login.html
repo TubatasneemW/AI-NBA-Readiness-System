@@ -127,7 +127,7 @@
       <!-- Global message area -->
       <div id="auth-message" class="alert" role="alert" aria-live="assertive"></div>
 
-      <form id="login-form" class="auth-form" novalidate autocomplete="on">
+      <form id="login-form" class="auth-form" novalidate autocomplete="on" action="javascript:void(0);" method="POST">
 
         <!-- Email -->
         <div class="auth-field form-group--float">
@@ -228,43 +228,19 @@ import { store }            from './js/store.js';
 import { login, friendlyAuthError } from './js/auth.js';
 import { ApiError }         from './js/api.js';
 
-// ── Init ─────────────────────────────────────────────────────
-initCursor();
-
-// Check session state on load
-const roleParam = (getParam('role') || '').toLowerCase();
-if (roleParam) {
-  store.clearSession();
-} else if (store.isLoggedIn()) {
-  const currentRole = store.getTopRole();
-  const currentUser = store.getUser();
-  const dest = CONFIG.DEFAULT_REDIRECT[currentRole] || '/dashboards/c3.html';
-  // Notify user they have an active session instead of auto-bouncing
-  showMessage(`Active session as <strong>${currentUser?.email || ''}</strong> (${currentRole}). <a href="${dest}" style="color:var(--cyan);text-decoration:underline;font-weight:600;">Go to ${currentRole} Dashboard &rarr;</a>`, 'info');
-}
-
-// ── Floating labels ───────────────────────────────────────────
-document.querySelectorAll('.auth-field .form-control').forEach(bindFloatingLabel);
-
-// ── Password toggle ───────────────────────────────────────────
+// ── DOM References (Declared FIRST before any function calls) ──
+const formEl     = document.getElementById('login-form');
+const emailInput = document.getElementById('email');
 const pwInput    = document.getElementById('password');
+const loginBtn   = document.getElementById('login-btn');
+const msgEl      = document.getElementById('auth-message');
 const toggleBtn  = document.getElementById('toggle-pw');
 const iconShow   = document.getElementById('pw-icon-show');
 const iconHide   = document.getElementById('pw-icon-hide');
 
-toggleBtn.addEventListener('click', () => {
-  const isHidden = pwInput.type === 'password';
-  pwInput.type   = isHidden ? 'text' : 'password';
-  iconShow.style.display = isHidden ? 'none' : '';
-  iconHide.style.display = isHidden ? '' : 'none';
-  toggleBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
-});
-
-// ── Form validation ───────────────────────────────────────────
-const emailInput = document.getElementById('email');
-const msgEl      = document.getElementById('auth-message');
-
+// ── Message helpers ──
 function showMessage(text, type = 'error') {
+  if (!msgEl) return;
   msgEl.className = `alert alert--${type} visible`;
   msgEl.innerHTML = `
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0">
@@ -277,10 +253,12 @@ function showMessage(text, type = 'error') {
 }
 
 function clearMessage() {
+  if (!msgEl) return;
   msgEl.className = 'alert';
   msgEl.innerHTML = '';
 }
 
+// ── Validation helpers ──
 function validateEmail(val) {
   if (!val) return 'Email is required.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return 'Enter a valid email address.';
@@ -292,75 +270,87 @@ function validatePassword(val) {
   return null;
 }
 
-emailInput.addEventListener('blur', () => {
-  const err = validateEmail(emailInput.value.trim());
-  if (err) setFieldError(emailInput, err);
-  else clearFieldError(emailInput);
-});
-
-// ── Login form submit ─────────────────────────────────────────
-document.getElementById('login-form').addEventListener('submit', async e => {
-  e.preventDefault();
+// ── Core Login Execution Function ──
+async function doLogin(email, password) {
   clearMessage();
 
-  const email    = emailInput.value.trim();
-  const password = pwInput.value;
-
-  // Client-side validation
-  let hasError = false;
   const emailErr = validateEmail(email);
   const pwErr    = validatePassword(password);
 
-  if (emailErr) { setFieldError(emailInput, emailErr); hasError = true; }
+  if (emailErr) { setFieldError(emailInput, emailErr); return; }
   else clearFieldError(emailInput);
 
-  if (pwErr) { setFieldError(pwInput, pwErr); hasError = true; }
+  if (pwErr) { setFieldError(pwInput, pwErr); return; }
   else clearFieldError(pwInput);
 
-  if (hasError) return;
-
-  const btn     = document.getElementById('login-btn');
-  const restore = setButtonLoading(btn, 'Signing in…');
+  const restore = setButtonLoading(loginBtn, 'Signing in…');
 
   try {
     const rawRedirect = getParam('redirect');
     const redirect = (rawRedirect && !rawRedirect.includes('c3.html')) ? rawRedirect : null;
     await login(email, password, redirect);
-    // navigation happens inside login()
   } catch (err) {
     restore();
     const msg = friendlyAuthError(err);
-
     if (err.message?.toLowerCase().includes('pending')) {
       showMessage(msg, 'warning');
     } else {
       showMessage(msg, 'error');
     }
   }
+}
+
+// ── Init ──
+initCursor();
+
+// Floating labels
+document.querySelectorAll('.auth-field .form-control').forEach(bindFloatingLabel);
+
+// Email input blur validation
+emailInput?.addEventListener('blur', () => {
+  const err = validateEmail(emailInput.value.trim());
+  if (err) setFieldError(emailInput, err);
+  else clearFieldError(emailInput);
 });
 
-// ── Demo credential buttons ──────────────────────────────────
+// Password toggle
+toggleBtn?.addEventListener('click', () => {
+  const isHidden = pwInput.type === 'password';
+  pwInput.type   = isHidden ? 'text' : 'password';
+  if (iconShow) iconShow.style.display = isHidden ? 'none' : '';
+  if (iconHide) iconHide.style.display = isHidden ? '' : 'none';
+  toggleBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+});
+
+// Form submit event
+formEl?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const email = emailInput?.value.trim() || '';
+  const password = pwInput?.value || '';
+  doLogin(email, password);
+  return false;
+});
+
+// Demo credential buttons
 function applyCredentials(email, pw, autoSubmit = false) {
-  emailInput.value = email;
-  pwInput.value = pw;
-  emailInput.classList.add('has-value');
-  pwInput.classList.add('has-value');
+  if (emailInput) {
+    emailInput.value = email;
+    emailInput.classList.add('has-value');
+    clearFieldError(emailInput);
+  }
+  if (pwInput) {
+    pwInput.value = pw;
+    pwInput.classList.add('has-value');
+    clearFieldError(pwInput);
+  }
   clearMessage();
-  clearFieldError(emailInput);
-  clearFieldError(pwInput);
 
   if (autoSubmit) {
-    // 1-click submit
-    const form = document.getElementById('login-form');
-    if (typeof form.requestSubmit === 'function') {
-      form.requestSubmit();
-    } else {
-      document.getElementById('login-btn')?.click();
-    }
+    doLogin(email, pw);
   }
 }
 
-// Demo credentials click-to-login
 document.querySelectorAll('.demo-cred').forEach(btn => {
   btn.addEventListener('mouseenter', () => {
     btn.style.borderColor = 'rgba(0, 245, 160, 0.4)';
@@ -370,24 +360,37 @@ document.querySelectorAll('.demo-cred').forEach(btn => {
     btn.style.borderColor = 'var(--glass-border)';
     btn.style.background = 'var(--surface-100)';
   });
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
     applyCredentials(btn.dataset.email, btn.dataset.pw, true);
   });
 });
 
-// Auto-login role if provided in URL (e.g. login.html?role=admin)
-if (roleParam === 'admin') {
-  login('admin@college.edu', 'password123', '/dashboards/admin.html');
-} else if (roleParam === 'hod') {
-  login('hod@college.edu', 'password123', '/dashboards/reports.html');
-} else if (roleParam === 'faculty') {
-  login('faculty@college.edu', 'password123', '/dashboards/faculty.html');
+// Check session state on load
+const roleParam = (getParam('role') || '').toLowerCase();
+if (roleParam) {
+  store.clearSession();
+  if (roleParam === 'admin') {
+    applyCredentials('admin@college.edu', 'password123', true);
+  } else if (roleParam === 'hod') {
+    applyCredentials('hod@college.edu', 'password123', true);
+  } else if (roleParam === 'faculty') {
+    applyCredentials('faculty@college.edu', 'password123', true);
+  }
+} else if (store.isLoggedIn()) {
+  const currentRole = store.getTopRole();
+  const currentUser = store.getUser();
+  const dest = CONFIG.DEFAULT_REDIRECT[currentRole] || '/dashboards/c3.html';
+  showMessage(`Active session as <strong>${currentUser?.email || ''}</strong> (${currentRole}). <a href="${dest}" style="color:var(--cyan);text-decoration:underline;font-weight:600;">Go to ${currentRole} Dashboard &rarr;</a>`, 'info');
 }
 
-// ── Keyboard shortcut: Enter submits ─────────────────────────
+// Keyboard Enter
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.activeElement?.tagName !== 'BUTTON') {
-    document.getElementById('login-form').requestSubmit();
+    e.preventDefault();
+    const email = emailInput?.value.trim() || '';
+    const password = pwInput?.value || '';
+    doLogin(email, password);
   }
 });
 </script>
