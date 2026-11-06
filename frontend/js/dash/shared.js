@@ -74,9 +74,17 @@ function _renderSidebar(activeCode, user) {
     </div>
 
     <nav class="sidebar-nav">
+      <div class="sidebar-nav-section-title">MY WORKSPACE</div>
+      <a href="faculty.html" class="sidebar-nav-item ${activeCode === 'FACULTY' ? 'active' : ''}">
+        <span>👩‍🏫</span><span>Faculty Home</span>
+      </a>
+
       <div class="sidebar-nav-section-title">NBA CRITERIA</div>
       <a href="c3.html" class="sidebar-nav-item ${activeCode === 'C3' ? 'active' : ''}">
         <span>🎯</span><span>Criterion 3 (Assessment)</span>
+      </a>
+      <a href="c4.html" class="sidebar-nav-item ${activeCode === 'C4' ? 'active' : ''}">
+        <span>📈</span><span>Criterion 4 (Students)</span>
       </a>
       <a href="c5.html" class="sidebar-nav-item ${activeCode === 'C5' ? 'active' : ''}">
         <span>👥</span><span>Criterion 5 (Faculty)</span>
@@ -98,7 +106,7 @@ function _renderSidebar(activeCode, user) {
 
       <div class="sidebar-nav-section-title">REPORTS & AUDIT</div>
       <a href="reports.html" class="sidebar-nav-item ${activeCode === 'REPORTS' ? 'active' : ''}">
-        <span>📊</span><span>Accreditation Reports</span>
+        <span>📊</span><span>Accreditation Reports (HOD)</span>
       </a>
       <a href="inspection.html" class="sidebar-nav-item ${activeCode === 'INSPECTION' ? 'active' : ''}">
         <span>🏆</span><span>Virtual NBA Inspection</span>
@@ -166,7 +174,9 @@ function _renderTopbar(activeCode, user) {
     <div class="topbar-left">
       <!-- Criterion Switcher -->
       <select class="criterion-switcher" id="criterion-switcher-select">
+        <option value="faculty" ${activeCode === 'FACULTY' ? 'selected' : ''}>Faculty Workspace</option>
         <option value="c3" ${activeCode === 'C3' ? 'selected' : ''}>C3: Outcome Assessment</option>
+        <option value="c4" ${activeCode === 'C4' ? 'selected' : ''}>C4: Students' Performance</option>
         <option value="c5" ${activeCode === 'C5' ? 'selected' : ''}>C5: Faculty Information</option>
         <option value="c6" ${activeCode === 'C6' ? 'selected' : ''}>C6: Faculty Contributions</option>
       </select>
@@ -339,7 +349,9 @@ function _setupCommandPalette() {
   const list = document.getElementById('cmd-palette-list');
 
   const commands = [
+    { label: 'Go to Faculty Workspace', url: 'faculty.html', badge: 'Faculty' },
     { label: 'Go to Criterion 3 (Outcome-Based Assessment)', url: 'c3.html', badge: 'C3' },
+    { label: 'Go to Criterion 4 (Students Performance)', url: 'c4.html', badge: 'C4' },
     { label: 'Go to Criterion 5 (Faculty Information)', url: 'c5.html', badge: 'C5' },
     { label: 'Go to Criterion 6 (Faculty Contributions)', url: 'c6.html', badge: 'C6' },
     { label: 'Run Virtual NBA Inspection', url: 'inspection.html', badge: 'Sim' },

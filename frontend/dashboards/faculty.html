@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Workspace — AI-NBA Readiness System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="dashboard-layout">
+
+  <div id="cursor-dot"  aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+  <div id="toast-container" role="log" aria-live="polite"></div>
+
+  <aside class="sidebar" id="dashboard-sidebar"></aside>
+  <header class="topbar" id="dashboard-topbar"></header>
+
+  <!-- Command Palette Modal -->
+  <div id="command-palette-backdrop">
+    <div class="command-palette-box">
+      <div class="command-palette-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="text" id="cmd-palette-input" class="command-palette-input" placeholder="Type a command or jump to page..." autofocus>
+      </div>
+      <ul class="command-palette-list" id="cmd-palette-list"></ul>
+    </div>
+  </div>
+
+  <main class="dashboard-main">
+    <div class="dashboard-content">
+
+      <!-- Faculty Profile Banner -->
+      <section class="criterion-header-card" style="border-left: 4px solid var(--aurora);">
+        <div class="crit-meta">
+          <div class="chip chip--info" style="margin-bottom:var(--space-2);background:rgba(0,245,160,0.15);color:var(--aurora);">
+            Faculty Personal Workspace
+          </div>
+          <h1 id="faculty-greeting">Welcome, Faculty Member</h1>
+          <p id="faculty-subtitle">Manage assigned course attainment, personal C5 profile, C6 research contributions, and evidence documents.</p>
+        </div>
+
+        <div style="display:flex;gap:var(--space-4);align-items:center;">
+          <div style="text-align:right;">
+            <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;font-family:var(--font-mono);">Faculty ID</div>
+            <div style="font-size:var(--text-lg);font-weight:700;color:var(--text-primary);" id="faculty-id-badge">FAC003</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;font-family:var(--font-mono);">Department</div>
+            <div style="font-size:var(--text-sm);font-weight:600;color:var(--cyan);" id="faculty-dept-badge">CSE</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI Summary Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:var(--space-6);margin-bottom:var(--space-8);">
+        <div class="chart-card">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">Assigned Courses</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--aurora);margin:var(--space-2) 0;" id="kpi-courses-count">2 Courses</div>
+          <div style="font-size:var(--text-xs);color:var(--text-secondary);">CS501 (78%) &bull; CS602 (71%)</div>
+        </div>
+        <div class="chart-card">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">C5 Profile Status</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--pass);margin:var(--space-2) 0;">94% Complete</div>
+          <div style="font-size:var(--text-xs);color:var(--text-secondary);">5 FDP days verified in CAY</div>
+        </div>
+        <div class="chart-card">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">C6 Research Credits</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--violet);margin:var(--space-2) 0;">3 Papers</div>
+          <div style="font-size:var(--text-xs);color:var(--text-secondary);">2 Scopus / 1 IEEE Conference</div>
+        </div>
+        <div class="chart-card">
+          <div style="font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">Evidence Workflow</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--warning);margin:var(--space-2) 0;">1 In Review</div>
+          <div style="font-size:var(--text-xs);color:var(--text-secondary);">6 Verified &bull; 0 Rejected</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tabs -->
+      <nav class="dash-tabs" role="tablist">
+        <button class="dash-tab-btn active" data-tab="tab-assigned-courses">My Assigned Courses (C3)</button>
+        <button class="dash-tab-btn" data-tab="tab-faculty-c5">My C5 Profile & FQI</button>
+        <button class="dash-tab-btn" data-tab="tab-faculty-c6">My C6 Research & Consultancy</button>
+        <button class="dash-tab-btn" data-tab="tab-faculty-uploads">Evidence Upload & Lifecycle</button>
+        <button class="dash-tab-btn" data-tab="tab-faculty-revisions">HOD Review & Actions</button>
+      </nav>
+
+      <!-- ── TAB 1: ASSIGNED COURSES (C3) ── -->
+      <div class="tab-pane active" id="tab-assigned-courses">
+        <div class="requirements-card">
+          <div style="padding:var(--space-5);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <h3 style="font-size:var(--text-lg);font-weight:700;">Assigned Teaching Workload & CO Attainment</h3>
+              <p style="font-size:var(--text-xs);color:var(--text-muted);">Direct assessment results, Blue Book submissions, and Course File compliance.</p>
+            </div>
+            <a href="c3.html" class="btn btn--outline btn--sm">Open Criterion 3 Hub &rarr;</a>
+          </div>
+
+          <table class="req-table">
+            <thead>
+              <tr>
+                <th>COURSE CODE & NAME</th>
+                <th>SEMESTER</th>
+                <th>STUDENTS</th>
+                <th>CO ATTAINMENT %</th>
+                <th>COURSE FILE</th>
+                <th style="text-align:right;">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>CS501 — Database Management Systems</strong>
+                  <div style="font-size:var(--text-xs);color:var(--text-muted);">Lecture: 3 hrs/wk | Lab: 2 hrs/wk</div>
+                </td>
+                <td class="mono">Sem 5 (2024-25)</td>
+                <td>64 Students</td>
+                <td><span class="chip chip--pass">78.4% (Target: 70%)</span></td>
+                <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                <td style="text-align:right;">
+                  <button class="btn btn--ghost btn--sm btn-course-view" data-course="CS501">View Details</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>CS602 — Web Technologies & Frameworks</strong>
+                  <div style="font-size:var(--text-xs);color:var(--text-muted);">Lecture: 3 hrs/wk | Lab: 2 hrs/wk</div>
+                </td>
+                <td class="mono">Sem 6 (2024-25)</td>
+                <td>62 Students</td>
+                <td><span class="chip chip--pass">71.2% (Target: 70%)</span></td>
+                <td><span class="chip chip--warning">Under Review</span></td>
+                <td style="text-align:right;">
+                  <button class="btn btn--ghost btn--sm btn-course-view" data-course="CS602">View Details</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── TAB 2: MY C5 PROFILE & FQI ── -->
+      <div class="tab-pane" id="tab-faculty-c5" style="display:none;">
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:var(--space-6);margin-bottom:var(--space-6);">
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3>FQI Qualification Profile</h3>
+              <span class="chip chip--pass">Tier-I Eligible</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-4);">
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--glass-border);padding-bottom:8px;">
+                <span style="color:var(--text-secondary);font-size:var(--text-xs);">Highest Degree</span>
+                <strong style="color:var(--text-primary);font-size:var(--text-xs);">M.Tech (CSE), Ph.D. Pursuing</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--glass-border);padding-bottom:8px;">
+                <span style="color:var(--text-secondary);font-size:var(--text-xs);">Cadre Designation</span>
+                <strong style="color:var(--text-primary);font-size:var(--text-xs);">Assistant Professor</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--glass-border);padding-bottom:8px;">
+                <span style="color:var(--text-secondary);font-size:var(--text-xs);">Experience</span>
+                <strong style="color:var(--text-primary);font-size:var(--text-xs);">7.5 Years Teaching</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--glass-border);padding-bottom:8px;">
+                <span style="color:var(--text-secondary);font-size:var(--text-xs);">FDP Days (CAY)</span>
+                <strong style="color:var(--aurora);font-size:var(--text-xs);">5 Days (Min: 5 Days) ✓</strong>
+              </div>
+            </div>
+            <a href="c5.html" class="btn btn--outline btn--sm" style="width:100%;margin-top:var(--space-4);justify-content:center;">View Department C5</a>
+          </div>
+
+          <div class="requirements-card">
+            <div style="padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;">
+              <h4 style="font-size:var(--text-sm);font-weight:600;text-transform:uppercase;color:var(--text-secondary);">Verified Faculty Credentials</h4>
+              <button class="btn btn--ghost btn--sm" id="btn-add-credential">+ Add Certificate</button>
+            </div>
+            <table class="req-table">
+              <thead>
+                <tr>
+                  <th>CREDENTIAL TITLE</th>
+                  <th>ISSUING BODY</th>
+                  <th>DATE</th>
+                  <th>VERIFICATION STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>M.Tech in Computer Science</strong></td>
+                  <td>National Institute of Technology</td>
+                  <td class="mono">2018</td>
+                  <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                </tr>
+                <tr>
+                  <td><strong>AICTE 5-Day ATAL FDP on Cloud Computing</strong></td>
+                  <td>AICTE Training & Learning Academy</td>
+                  <td class="mono">Oct 2024</td>
+                  <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                </tr>
+                <tr>
+                  <td><strong>NPTEL Elite Certification in Data Science</strong></td>
+                  <td>IIT Madras / SWAYAM</td>
+                  <td class="mono">Apr 2024</td>
+                  <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB 3: MY C6 CONTRIBUTIONS ── -->
+      <div class="tab-pane" id="tab-faculty-c6" style="display:none;">
+        <div class="requirements-card">
+          <div style="padding:var(--space-5);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <h3 style="font-size:var(--text-lg);font-weight:700;">My Research, Publications & Consultancy</h3>
+              <p style="font-size:var(--text-xs);color:var(--text-muted);">Indexed journal offprints, patents, and technical contributions for Criterion 6.</p>
+            </div>
+            <button class="btn btn--primary btn--sm" id="btn-add-publication">+ Add Publication</button>
+          </div>
+
+          <table class="req-table">
+            <thead>
+              <tr>
+                <th>TITLE & DETAILS</th>
+                <th>INDEXING / DOI</th>
+                <th>ACADEMIC YEAR</th>
+                <th>EVIDENCE PROOF</th>
+                <th style="text-align:right;">STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>"Optimized Query Plan Generation Using Graph Transformers"</strong>
+                  <div style="font-size:var(--text-xs);color:var(--text-muted);">Journal of Supercomputing (Springer)</div>
+                </td>
+                <td class="mono">SCI / Scopus (Q2)<br><small style="color:var(--aurora)">10.1007/s11227-024</small></td>
+                <td class="mono">2024-25</td>
+                <td><span class="chip chip--pass">Offprint Uploaded</span></td>
+                <td style="text-align:right;"><span class="chip chip--pass">Verified ✓</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>"Real-time Edge Anomaly Detection for Micro-Sensors"</strong>
+                  <div style="font-size:var(--text-xs);color:var(--text-muted);">IEEE International Conference on Advanced Computing (IACC)</div>
+                </td>
+                <td class="mono">Scopus Conference<br><small style="color:var(--aurora)">10.1109/IACC.2024</small></td>
+                <td class="mono">2024-25</td>
+                <td><span class="chip chip--pass">Proceedings PDF</span></td>
+                <td style="text-align:right;"><span class="chip chip--pass">Verified ✓</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── TAB 4: EVIDENCE UPLOAD & LIFECYCLE ── -->
+      <div class="tab-pane" id="tab-faculty-uploads" style="display:none;">
+        <!-- Upload Form Card -->
+        <div class="chart-card" style="margin-bottom:var(--space-6);">
+          <div class="chart-card-header">
+            <h3>Upload New Evidence Document</h3>
+            <span class="chip chip--info">SHA-256 Tamper Evident</span>
+          </div>
+          <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:var(--space-4);">
+            Upload documents with exact criterion and sub-requirement tagging. Files undergo automated SHA-256 fingerprinting and RAG chunk indexing.
+          </p>
+
+          <form id="faculty-upload-form" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:var(--space-4);align-items:end;">
+            <div>
+              <label style="display:block;font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:4px;">Target Criterion</label>
+              <select id="upload-criterion" class="form-control" style="background:var(--surface-100);color:var(--text-primary);border-color:var(--glass-border);padding:8px 12px;border-radius:var(--radius-sm);width:100%;">
+                <option value="C3">Criterion 3 (Course Outcomes & Assessment)</option>
+                <option value="C4">Criterion 4 (Students' Performance)</option>
+                <option value="C5" selected>Criterion 5 (Faculty Profile & FDP)</option>
+                <option value="C6">Criterion 6 (R&D, Patents & Consultancy)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="display:block;font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:4px;">Sub-Requirement Code</label>
+              <input type="text" id="upload-subreq" class="form-control" placeholder="e.g. 5.1 or 3.2" value="5.1" style="background:var(--surface-100);color:var(--text-primary);border-color:var(--glass-border);padding:8px 12px;border-radius:var(--radius-sm);width:100%;">
+            </div>
+
+            <div>
+              <label style="display:block;font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:4px;">Academic Year</label>
+              <select id="upload-year" class="form-control" style="background:var(--surface-100);color:var(--text-primary);border-color:var(--glass-border);padding:8px 12px;border-radius:var(--radius-sm);width:100%;">
+                <option value="CAY">CAY (2024-2025)</option>
+                <option value="CAYm1">CAYm1 (2023-2024)</option>
+                <option value="CAYm2">CAYm2 (2022-2023)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="display:block;font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:4px;">Select File (PDF, XLSX, DOCX)</label>
+              <input type="file" id="upload-file-input" class="form-control" style="background:var(--surface-100);color:var(--text-primary);border-color:var(--glass-border);padding:6px;border-radius:var(--radius-sm);width:100%;">
+            </div>
+
+            <div>
+              <button type="submit" class="btn btn--primary" id="btn-submit-upload" style="width:100%;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <span>Upload & Sign Hash</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- My Uploaded Documents Table -->
+        <div class="requirements-card">
+          <div style="padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;">
+            <h4 style="font-size:var(--text-sm);font-weight:600;text-transform:uppercase;color:var(--text-secondary);">Uploaded Documents Lifecycle Tracker</h4>
+            <span class="chip chip--pass">7 Documents Tracked</span>
+          </div>
+          <table class="req-table">
+            <thead>
+              <tr>
+                <th>DOCUMENT NAME</th>
+                <th>CRITERION</th>
+                <th>YEAR</th>
+                <th>SHA-256 FINGERPRINT</th>
+                <th>LIFECYCLE STATUS</th>
+                <th style="text-align:right;">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="faculty-docs-tbody">
+              <tr>
+                <td><strong>CS501_CIE_Question_Paper_Rubrics.pdf</strong></td>
+                <td><span class="chip chip--info">C3.2</span></td>
+                <td class="mono">2024-25</td>
+                <td class="mono" style="font-size:11px;color:var(--text-muted)">a9f4e2...88c1</td>
+                <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                <td style="text-align:right;"><button class="btn btn--ghost btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td><strong>CS501_Evaluated_Blue_Books_Sample.pdf</strong></td>
+                <td><span class="chip chip--info">C3.3</span></td>
+                <td class="mono">2024-25</td>
+                <td class="mono" style="font-size:11px;color:var(--text-muted)">7d2e11...44f9</td>
+                <td><span class="chip chip--warning">Under Review</span></td>
+                <td style="text-align:right;"><button class="btn btn--ghost btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td><strong>AICTE_ATAL_FDP_Certificate_Oct2024.pdf</strong></td>
+                <td><span class="chip chip--info">C5.1</span></td>
+                <td class="mono">2024-25</td>
+                <td class="mono" style="font-size:11px;color:var(--text-muted)">3c88b1...99e4</td>
+                <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                <td style="text-align:right;"><button class="btn btn--ghost btn--sm">View</button></td>
+              </tr>
+              <tr>
+                <td><strong>Springer_Supercomputing_Offprint.pdf</strong></td>
+                <td><span class="chip chip--info">C6.2</span></td>
+                <td class="mono">2024-25</td>
+                <td class="mono" style="font-size:11px;color:var(--text-muted)">5b11a4...22c8</td>
+                <td><span class="chip chip--pass">Verified by HOD ✓</span></td>
+                <td style="text-align:right;"><button class="btn btn--ghost btn--sm">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── TAB 5: HOD REVISIONS & ACTIONS ── -->
+      <div class="tab-pane" id="tab-faculty-revisions" style="display:none;">
+        <div class="requirements-card">
+          <div style="padding:var(--space-5);border-bottom:1px solid var(--glass-border);">
+            <h3 style="font-size:var(--text-lg);font-weight:700;">HOD Review Feedback & Action Queue</h3>
+            <p style="font-size:var(--text-xs);color:var(--text-muted);">Items returned with correction notes or verification requests.</p>
+          </div>
+
+          <div style="padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);">
+            <div style="background:var(--surface-100);border:1px solid var(--glass-border);border-left:4px solid var(--warning);padding:var(--space-4);border-radius:var(--radius-md);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2);">
+                <strong style="color:var(--warning);">Correction Requested: CS602 Course File Laboratory Manual</strong>
+                <span class="chip chip--warning">Action Required</span>
+              </div>
+              <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-3);">
+                <strong>HOD Feedback (Dr. Rajesh Kumar):</strong> "Please append the updated rubric mapping for Experiment 8 (REST API endpoints). Once added, resubmit with updated version tag."
+              </p>
+              <button class="btn btn--primary btn--sm" id="btn-resubmit-cs602">
+                Resubmit Corrected Document
+              </button>
+            </div>
+
+            <div style="background:var(--surface-100);border:1px solid var(--glass-border);border-left:4px solid var(--pass);padding:var(--space-4);border-radius:var(--radius-md);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2);">
+                <strong style="color:var(--pass);">Verified: FDP Certificate (ATAL Cloud Computing)</strong>
+                <span class="chip chip--pass">Approved</span>
+              </div>
+              <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">
+                HOD verified 5 contact days. 5 marks credited to Department Criterion 5.1 FQI score ledger.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="../js/dash/faculty.js"></script>
+</body>
+</html>
+

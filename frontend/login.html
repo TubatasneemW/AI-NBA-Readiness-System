@@ -119,23 +119,10 @@
       </div>
 
       <header class="auth-form-header">
-        <div class="badge">Secure Access Portal</div>
+        <div class="badge">Institutional Sign In</div>
         <h1>Welcome back</h1>
-        <p>Sign in with your Admin, HOD, or Faculty credentials</p>
+        <p>Sign in with your institutional credentials:</p>
       </header>
-
-      <!-- Role Selector Tabs -->
-      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--space-2);margin-bottom:var(--space-6);">
-        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="admin@college.edu" data-pw="password123" data-dest="dashboards/admin.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
-          👑 <strong>Admin</strong>
-        </button>
-        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="hod@college.edu" data-pw="password123" data-dest="dashboards/reports.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
-          🎓 <strong>HOD</strong>
-        </button>
-        <button type="button" class="btn btn--ghost btn--sm role-quick-btn" data-email="faculty@college.edu" data-pw="password123" data-dest="dashboards/c3.html" style="font-size:11px;padding:6px 8px;border-color:var(--glass-border);">
-          👩‍🏫 <strong>Faculty</strong>
-        </button>
-      </div>
 
       <!-- Global message area -->
       <div id="auth-message" class="alert" role="alert" aria-live="assertive"></div>
@@ -352,7 +339,7 @@ document.getElementById('login-form').addEventListener('submit', async e => {
   }
 });
 
-// ── Demo credential & Quick Role buttons ───────────────────────
+// ── Demo credential buttons ──────────────────────────────────
 function applyCredentials(email, pw, autoSubmit = false) {
   emailInput.value = email;
   pwInput.value = pw;
@@ -363,37 +350,26 @@ function applyCredentials(email, pw, autoSubmit = false) {
   clearFieldError(pwInput);
 
   if (autoSubmit) {
-    // Quick 1-click sign in
-    document.getElementById('login-form').requestSubmit();
+    // 1-click submit
+    const form = document.getElementById('login-form');
+    if (typeof form.requestSubmit === 'function') {
+      form.requestSubmit();
+    } else {
+      document.getElementById('login-btn')?.click();
+    }
   }
 }
 
-// Top role tabs: 1-click instant login directly to role destination
-document.querySelectorAll('.role-quick-btn').forEach(btn => {
-  btn.addEventListener('mouseenter', () => { btn.style.borderColor = 'rgba(0, 245, 160,0.6)'; btn.style.background = 'var(--surface-200)'; });
-  btn.addEventListener('mouseleave', () => { btn.style.borderColor = 'var(--glass-border)'; btn.style.background = 'var(--surface-100)'; });
-  btn.addEventListener('click', async () => {
-    store.clearSession();
-    emailInput.value = btn.dataset.email;
-    pwInput.value = btn.dataset.pw;
-    emailInput.classList.add('has-value');
-    pwInput.classList.add('has-value');
-    clearMessage();
-
-    const restore = setButtonLoading(btn, 'Signing in…');
-    try {
-      await login(btn.dataset.email, btn.dataset.pw, btn.dataset.dest);
-    } catch (err) {
-      restore();
-      showMessage(friendlyAuthError(err), 'error');
-    }
-  });
-});
-
-// Bottom demo credentials: fill inputs
+// Demo credentials click-to-login
 document.querySelectorAll('.demo-cred').forEach(btn => {
-  btn.addEventListener('mouseenter', () => { btn.style.borderColor = 'rgba(0, 245, 160,0.4)'; btn.style.background = 'var(--surface-200)'; });
-  btn.addEventListener('mouseleave', () => { btn.style.borderColor = 'var(--glass-border)'; btn.style.background = 'var(--surface-100)'; });
+  btn.addEventListener('mouseenter', () => {
+    btn.style.borderColor = 'rgba(0, 245, 160, 0.4)';
+    btn.style.background = 'var(--surface-200)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.borderColor = 'var(--glass-border)';
+    btn.style.background = 'var(--surface-100)';
+  });
   btn.addEventListener('click', () => {
     applyCredentials(btn.dataset.email, btn.dataset.pw, true);
   });
@@ -401,11 +377,11 @@ document.querySelectorAll('.demo-cred').forEach(btn => {
 
 // Auto-login role if provided in URL (e.g. login.html?role=admin)
 if (roleParam === 'admin') {
-  login('admin@college.edu', 'password123', 'dashboards/admin.html');
+  login('admin@college.edu', 'password123', '/dashboards/admin.html');
 } else if (roleParam === 'hod') {
-  login('hod@college.edu', 'password123', 'dashboards/reports.html');
+  login('hod@college.edu', 'password123', '/dashboards/reports.html');
 } else if (roleParam === 'faculty') {
-  login('faculty@college.edu', 'password123', 'dashboards/c3.html');
+  login('faculty@college.edu', 'password123', '/dashboards/faculty.html');
 }
 
 // ── Keyboard shortcut: Enter submits ─────────────────────────

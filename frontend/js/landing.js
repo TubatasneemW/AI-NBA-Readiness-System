@@ -6,7 +6,7 @@
  * No autonomous runaway timers or runaway animation loops.
  */
 
-import { initCriteriaCarousel, destroyCriteriaCarousel } from './carousel.js';
+import { initCriteriaCarousel, destroyCriteriaCarousel } from './carousel.js?v=c4_oneline_v3';
 import { countUp, initCursor, initThemeToggle } from './ui.js';
 import { store } from './store.js';
 
